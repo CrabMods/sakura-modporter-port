@@ -3,11 +3,11 @@
   "validatedOn": "2026-11-16",
   "artifact": {
     "filename": "Sakura-1.0.10-1.21.1-modporter.1.jar",
-    "bytes": 2759217,
-    "sha256": "22a613d19958d04166d3f4910b625a0ca8e50c6f34e9395e6d2ccb735fdd7095"
+    "bytes": 2759212,
+    "sha256": "fa3daee008be81a4a53fe0965662d27f5382104d3b34135bc7d6c0f127df1332"
   },
-  "sourceBuildCommit": "0438478ca1bec32d13b5c72411f7f36316e44d70",
-  "sourceBuildTree": "55591fc846a8326b1fee047ae37096f60b3185b2",
+  "sourceBuildCommit": "e4d3a51e11007e234c3219751e4c5e91b134b023",
+  "sourceBuildTree": "3474c4a040b73ff380736d09ebc4df2e83e269fd",
   "generatorVersion": "0.4.0",
   "generatorJarSha256": "1134fa8ae04d50d904396fc2b59b77d7e668464f8dd63cfcf4c2eb521d37a9f4",
   "allProductionFilesMatchGeneratedExport": true,
@@ -29,10 +29,10 @@
           "dependencyJarSha256": "6010a3ba353a3f88343630bc053250105df49b331dfcdd254810fbb46ef7f8a4"
         }
       ],
-      "runReceiptSha256": "21c01be760d1e63a165755dd651c03c77151bb9bb5534f8cbb029478a6b62843",
-      "harnessReceiptSha256": "f0a3ab4775c93a8c0ccddc9eca97afa95674aee235f06b7649f709be3ea7c73b",
-      "runtimeLogSha256": "3934caa1f72507db1d7fad0454e195dffa7f4546015ccb6da20e2071b28b0e7c",
-      "harnessSourceRootSha256": "3520138c3da780dd918874022361ce3ed4b4d5fcdb197c521551da31cb05906a"
+      "runReceiptSha256": "ac0e3192ae96cd83930122fe9abbd3fa8bc21643cc2fedd1689c959c1ed7595e",
+      "harnessReceiptSha256": "1ae00f99c390d1f22647e1f95322d0bcf0df60160c706b5e0585dcf43ca11fd1",
+      "runtimeLogSha256": "6016793ee340ae71eafca0d2c953d747ca0110a6559be04d1736896c702d2a5a",
+      "harnessSourceRootSha256": "5f703e85999efeaf1bdea96f116a07781f1820c07682d52f9a5408eadefa4437"
     },
     "client": {
       "passed": true,
@@ -60,10 +60,10 @@
           "dependencyJarSha256": "6010a3ba353a3f88343630bc053250105df49b331dfcdd254810fbb46ef7f8a4"
         }
       ],
-      "runReceiptSha256": "d7ac67e23e14032fcaf7f4066bb634d622e8ff3cd1cf3639c3772ee5a0a04712",
-      "harnessReceiptSha256": "709b9f5c6c7e2cd228bb2926021f64de43c5e93cd61de8272ab983b5680ca7e6",
-      "runtimeLogSha256": "5eaea72d3d25a0113b34cf39adb03c96dabb102569aa2707221342c6a884abd0",
-      "harnessSourceRootSha256": "3520138c3da780dd918874022361ce3ed4b4d5fcdb197c521551da31cb05906a",
+      "runReceiptSha256": "e7af6f49525a1cd1f2fe826e033fda2a16cee38108431cad9bc15720e1cb79a0",
+      "harnessReceiptSha256": "8c9c594246c3459414ffaa8b2bc4aad30fe4af322e56970852c2780ebbe807ee",
+      "runtimeLogSha256": "9dc11e65921cefecbe19cb8e825a1a32ac741c195bc4051ae75645b6a910117d",
+      "harnessSourceRootSha256": "5f703e85999efeaf1bdea96f116a07781f1820c07682d52f9a5408eadefa4437",
       "expectedRegisteredItemCount": 198,
       "creativeTargetStackCount": 198,
       "creativeTabCount": 2,
@@ -80,5 +80,6 @@
     }
   },
   "uniqueEvidenceFilesRehashed": 60,
-  "scope": "Packaged JAR origin, bootstrap, saved-world load, native creative inventory and icon rendering, strict source-bound logs, and cleanup. Detailed item and integration behavior remains for developer review."
+  "scope": "Packaged JAR origin, bootstrap, saved-world load, native creative inventory and icon rendering, strict source-bound logs, and cleanup. Detailed item and integration behavior remains for developer review.",
+  "stableManifestTitle": "sakura"
 }

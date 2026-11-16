@@ -20,10 +20,10 @@ The earlier manual port remains on [1.21.1-manual](https://github.com/crabsatell
 | Official tool JAR SHA-256 | `1134fa8ae04d50d904396fc2b59b77d7e668464f8dd63cfcf4c2eb521d37a9f4` |
 | Exporter SHA-256 | `0250f995115805e4b99a85231093a36a7833d6f5c5499e8a865197b6a8bf73d3` |
 | Generated output tree SHA-256 | `cf6b747a083719af53dfafe0933a48f380c9e9ed2b2a60cf75c1f33c5dc4ec6c` |
-| Build source commit | `0438478ca1bec32d13b5c72411f7f36316e44d70` |
-| Build source Git tree | `55591fc846a8326b1fee047ae37096f60b3185b2` |
+| Build source commit | `e4d3a51e11007e234c3219751e4c5e91b134b023` |
+| Build source Git tree | `3474c4a040b73ff380736d09ebc4df2e83e269fd` |
 | Candidate JAR | `Sakura-1.0.10-1.21.1-modporter.1.jar` |
-| Candidate JAR SHA-256 | `22a613d19958d04166d3f4910b625a0ca8e50c6f34e9395e6d2ccb735fdd7095` |
+| Candidate JAR SHA-256 | `fa3daee008be81a4a53fe0965662d27f5382104d3b34135bc7d6c0f127df1332` |
 | Game / loader / Java | Minecraft 1.21.1 / NeoForge 21.1.230 / Java 21 |
 
 ## Generated source and import
@@ -101,3 +101,5 @@ The checked-in `validation/fixtures/client-world.zip` supplies the exact owned, 
 ## Repository policy
 
 The Minecraft `1.21.1` branch contains this generated developer baseline; later game versions use separate version branches. Migration fixes belong in reusable [ModPorter rules and issues](https://github.com/CrabMods/modporter/issues). The original mod remains MIT with its original copyright. Public build and validation components retain their separate Apache-2.0 notices. Human review is part of preparing a generated port for broader distribution.
+
+The packaging metadata fixes `rootProject.name` to `sakura`, keeping the JAR manifest title independent of the checkout directory. Production code and resource payloads remain unchanged.
