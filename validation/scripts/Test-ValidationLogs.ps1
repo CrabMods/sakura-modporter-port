@@ -122,6 +122,19 @@ $warningPatterns = @(
 
 $findings = [Collections.Generic.List[object]]::new()
 $allowed = [Collections.Generic.List[object]]::new()
+$dependencyPolicyPath = Join-Path $projectRoot 'config\dependency-log-evidence.json'
+$dependencyClassifier = Join-Path $PSScriptRoot 'dependency_log_evidence.py'
+$python = @(Get-Command python -CommandType Application -ErrorAction Stop)[0].Source
+$dependencyOutput = @(& $python -B $dependencyClassifier --log $LogPath `
+    --receipt $HarnessReceiptPath --policy $dependencyPolicyPath)
+if ($LASTEXITCODE -ne 0) {
+    throw 'Dependency resource evidence could not be verified'
+}
+$dependencyEvidence = ($dependencyOutput -join "`n") | ConvertFrom-Json
+$dependencyByLine = @{}
+foreach ($entry in @($dependencyEvidence.allowedConditions)) {
+    $dependencyByLine[[int]$entry.line] = $entry
+}
 for ($index = 0; $index -lt $lines.Count; $index++) {
     $line = $lines[$index]
     $isFatal = @($fatalPatterns | Where-Object { $line -match $_ }).Count -gt 0
@@ -140,6 +153,8 @@ for ($index = 0; $index -lt $lines.Count; $index++) {
             conditionId = [string]$matchingCondition.id
             text = $line.Trim()
         })
+    } elseif ($dependencyByLine.ContainsKey($index + 1)) {
+        $allowed.Add($dependencyByLine[$index + 1])
     } else {
         $findings.Add([ordered]@{
             line = $index + 1
@@ -228,6 +243,9 @@ $audit = [ordered]@{
     allowedConditionCount = $allowed.Count
     findings = @($findings)
     allowedConditions = @($allowed)
+    dependencyEvidencePolicySha256 = (Get-FileHash -Algorithm SHA256 `
+        -LiteralPath $dependencyPolicyPath).Hash.ToLowerInvariant()
+    dependencyArtifactChecks = @($dependencyEvidence.artifacts)
     passed = $findings.Count -eq 0
     auditedAtUtc = [DateTime]::UtcNow.ToString('o')
 }
