@@ -1,9 +1,10 @@
 package cn.mcmod.sakura.item;
 
-import com.google.common.collect.Lists;
-import cn.mcmod_mmf.mmlib.item.info.FoodInfo;
-
 import java.util.List;
+
+import com.google.common.collect.Lists;
+
+import cn.mcmod_mmf.mmlib.item.info.FoodInfo;
 
 public final class ItemList {
     public static List<String> MATERIAL_SET = Lists.newArrayList("silk", "hop", "straw", "brown_rice", "rice", "salt",
@@ -11,7 +12,7 @@ public final class ItemList {
             "dough_buckwheat", "ramen_raw", "udon_raw", "soba_raw", "pasta_raw", "maple_syrup", "noodle_soup",
             "soysause", "seaweed", "worcester_sauce", "mayo", "vinegar", "curry_sauce", "tomato_sauce", "white_sauce",
             "tempura_batter", "chestnut_burrs", "chestnut", "peppercorn_green", "peppercorn_red", "black_pepper",
-            "white_pepper", "vanilla", "vanilla_roast", "lumber_bamboo",
+            "white_pepper", "grape_seeds", "vanilla_seeds", "vanilla", "vanilla_roast", "lumber_bamboo",
             "lumber_sakura", "lumber_maple", "miso", "miso_ball", "breadcrumbs", "green_tea_leaves", "black_tea_leaves",
             "earl_grey_leaves", "fruit_tea_leaves", "mocha", "rice_tea_leaves", "mint", "mint_tea_leaves", "coin",
             "zuku", "zuku_ingot", "sagegane", "tamahagane", "steel_ingot", "imogara", "dried_imogara",

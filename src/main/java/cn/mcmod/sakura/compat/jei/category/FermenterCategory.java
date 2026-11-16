@@ -1,17 +1,11 @@
 package cn.mcmod.sakura.compat.jei.category;
 
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import cn.mcmod.sakura.SakuraMod;
 import cn.mcmod.sakura.block.BlockRegistry;
 import cn.mcmod.sakura.block.entity.FermenterBlockEntity;
 import cn.mcmod.sakura.compat.jei.JEIPlugin;
 import cn.mcmod.sakura.recipes.FermenterRecipe;
-import cn.mcmod.sakura.recipes.base.FluidIngredient;
+import cn.mcmod.sakura.base.FluidIngredient;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -23,14 +17,25 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class FermenterCategory implements IRecipeCategory<FermenterRecipe> {
 
     public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(SakuraMod.MODID, "fermenting");
+
     protected final IDrawableAnimated arrow;
+
     protected final IDrawableAnimated bubbles;
+
     private final Component title;
+
     private final IDrawable background;
+
     private final IDrawable icon;
 
     public FermenterCategory(IGuiHelper helper) {
@@ -52,47 +57,50 @@ public class FermenterCategory implements IRecipeCategory<FermenterRecipe> {
         return title;
     }
 
-    @Override
-    public IDrawable getBackground() {
-        return background;
-    }
+
+
+
+
+	@Override
+	public int getWidth() {
+		return this.background.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+		return this.background.getHeight();
+	}
 
     @Override
     public IDrawable getIcon() {
         return icon;
     }
-    
+
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, FermenterRecipe recipe, IFocusGroup focuses) {
         NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
         int borderSlotSize = 18;
         for (int row = 0; row < 3; ++row) {
-                int inputIndex = row;
-                if (inputIndex < recipeIngredients.size()) {
-                    builder.addSlot(RecipeIngredientRole.INPUT, 23, 1 + row * borderSlotSize)
-                    .addIngredients(recipeIngredients.get(inputIndex));
-                }
+            int inputIndex = row;
+            if (inputIndex < recipeIngredients.size()) {
+                builder.addSlot(RecipeIngredientRole.INPUT, 23, 1 + row * borderSlotSize).addIngredients(recipeIngredients.get(inputIndex));
+            }
         }
-        if(recipe.getRequiredFluid() != FluidIngredient.EMPTY)
-            builder.addSlot(RecipeIngredientRole.INPUT, 1, 1)
-            .setFluidRenderer(FermenterBlockEntity.TANK_CAPACITY, true, 16, 52)
-            .addIngredients(NeoForgeTypes.FLUID_STACK, recipe.getRequiredFluid().getMatchingFluidStacks());
-        
+        if (recipe.getRequiredFluid() != FluidIngredient.EMPTY)
+            builder.addSlot(RecipeIngredientRole.INPUT, 1, 1).setFluidRenderer(FermenterBlockEntity.TANK_CAPACITY, true, 16, 52).addIngredients(NeoForgeTypes.FLUID_STACK, recipe.getRequiredFluid().getMatchingFluidStacks());
         for (int row = 0; row < 3; ++row) {
             int inputIndex = row;
             if (inputIndex < recipe.getResultItemList().size()) {
-                builder.addSlot(RecipeIngredientRole.OUTPUT, 71, 1 + row * borderSlotSize)
-                .addItemStack(recipe.getResultItemList().get(inputIndex));
+                builder.addSlot(RecipeIngredientRole.OUTPUT, 71, 1 + row * borderSlotSize).addItemStack(recipe.getResultItemList().get(inputIndex));
             }
         }
-        if(!recipe.getResultFluid().isEmpty())
-            builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 1)
-            .setFluidRenderer(FermenterBlockEntity.TANK_CAPACITY, true, 16, 52)
-            .addIngredient(NeoForgeTypes.FLUID_STACK, recipe.getResultFluid());
+        if (!recipe.getResultFluid().isEmpty())
+            builder.addSlot(RecipeIngredientRole.INPUT, 93, 1).setFluidRenderer(FermenterBlockEntity.TANK_CAPACITY, true, 16, 52).addIngredient(NeoForgeTypes.FLUID_STACK, recipe.getResultFluid());
     }
 
     @Override
     public void draw(FermenterRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    	this.background.draw(guiGraphics);
         bubbles.draw(guiGraphics, 46, 10);
         arrow.draw(guiGraphics, 44, 28);
     }

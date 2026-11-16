@@ -1,8 +1,13 @@
 package cn.mcmod.sakura.container;
 
+import java.util.Objects;
+
+import cn.mcmod.sakura.block.BlockRegistry;
+import cn.mcmod.sakura.block.entity.StoneMortarBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -14,10 +19,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import cn.mcmod.sakura.block.BlockRegistry;
-import cn.mcmod.sakura.block.entity.StoneMortarBlockEntity;
-
-import java.util.Objects;
 
 public class StoneMortarContainer extends AbstractContainerMenu {
 
@@ -26,6 +27,7 @@ public class StoneMortarContainer extends AbstractContainerMenu {
     private final ContainerData containerData;
     private final ContainerLevelAccess canInteractWithCallable;
 
+    @SuppressWarnings("this-escape")
     public StoneMortarContainer(final int windowId, final Inventory playerInventory,
             final StoneMortarBlockEntity tileEntity, ContainerData cookingPotDataIn) {
         super(ContainerRegistry.STONE_MORTAR.get(), windowId);
@@ -118,6 +120,7 @@ public class StoneMortarContainer extends AbstractContainerMenu {
         throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
     }
 
+    @SuppressWarnings("this-escape")
     public StoneMortarContainer(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) {
         this(windowId, playerInventory, getTileEntity(playerInventory, data), new SimpleContainerData(4));
     }

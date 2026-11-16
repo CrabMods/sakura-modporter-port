@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -18,33 +19,44 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class TeishokuFinishedBlock extends Block {
-    public static final MapCodec<TeishokuFinishedBlock> CODEC = simpleCodec(p -> new TeishokuFinishedBlock());
+    public static final com.mojang.serialization.MapCodec<TeishokuFinishedBlock> CODEC = simpleCodec(TeishokuFinishedBlock::new);
 
-    @SuppressWarnings("unchecked")
     @Override
-    public MapCodec codec() {
+    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.Block> codec() {
         return CODEC;
+    }
+
+
+    public TeishokuFinishedBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
+    @SuppressWarnings("this-escape")
     public TeishokuFinishedBlock() {
-        super(Properties.ofFullCopy(Blocks.OAK_SLAB).noOcclusion());
+        super(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult hit) {
-        InteractionHand handIn = InteractionHand.MAIN_HAND;
+    protected net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack itemstack, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (worldIn.isClientSide) {
             if (this.takePlates(worldIn, pos, state, player, handIn).consumesAction()) {
-                return InteractionResult.SUCCESS;
+                return net.minecraft.world.ItemInteractionResult.SUCCESS;
             }
         }
-        return this.takePlates(worldIn, pos, state, player, handIn);
+        return switch (this.takePlates(worldIn, pos, state, player, handIn)) {
+            case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case SUCCESS_NO_ITEM_USED -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
+            case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
+            case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
+            default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
     }
 
     private InteractionResult takePlates(Level worldIn, BlockPos pos, BlockState state, Player player,

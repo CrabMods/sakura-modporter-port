@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "sakura:bamboo"
+            "items": [
+              "sakura:bamboo"
+            ]
           }
         ]
       },
@@ -20,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_item"
+      "has_item",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "sakura:bamboo_charcoal_from_smelt"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

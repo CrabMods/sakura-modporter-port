@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "sakura:burger_raw"
+            "items": [
+              "sakura:burger_raw"
+            ]
           }
         ]
       },
@@ -20,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_ingredient"
+      "has_ingredient",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "sakura:burger"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -20,13 +20,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_seeds"
+      "has_seeds",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "sakura:food_oil_bucket"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

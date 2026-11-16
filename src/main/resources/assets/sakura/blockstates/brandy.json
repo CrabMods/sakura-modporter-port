@@ -1,7 +1,52 @@
 {
-  "variants": {
-    "": {
-      "model": "sakura:block/brandy"
+    "variants": {
+        "level=0": {
+            "model": "sakura:block/brandy"
+        },
+        "level=1": {
+            "model": "sakura:block/brandy"
+        },
+        "level=2": {
+            "model": "sakura:block/brandy"
+        },
+        "level=3": {
+            "model": "sakura:block/brandy"
+        },
+        "level=4": {
+            "model": "sakura:block/brandy"
+        },
+        "level=5": {
+            "model": "sakura:block/brandy"
+        },
+        "level=6": {
+            "model": "sakura:block/brandy"
+        },
+        "level=7": {
+            "model": "sakura:block/brandy"
+        },
+        "level=8": {
+            "model": "sakura:block/brandy"
+        },
+        "level=9": {
+            "model": "sakura:block/brandy"
+        },
+        "level=10": {
+            "model": "sakura:block/brandy"
+        },
+        "level=11": {
+            "model": "sakura:block/brandy"
+        },
+        "level=12": {
+            "model": "sakura:block/brandy"
+        },
+        "level=13": {
+            "model": "sakura:block/brandy"
+        },
+        "level=14": {
+            "model": "sakura:block/brandy"
+        },
+        "level=15": {
+            "model": "sakura:block/brandy"
+        }
     }
-  }
 }

@@ -1,5 +1,8 @@
 package cn.mcmod.sakura.block.crops;
 
+import javax.annotation.Nullable;
+
+import cn.mcmod.sakura.block.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -7,7 +10,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -27,17 +29,12 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import cn.mcmod.sakura.block.BlockRegistry;
-import com.mojang.serialization.MapCodec;
-
-import javax.annotation.Nullable;
 
 public class RiceCropRoot extends BushBlock implements BonemealableBlock, LiquidBlockContainer {
-    public static final MapCodec<RiceCropRoot> CODEC = simpleCodec(RiceCropRoot::new);
+    public static final com.mojang.serialization.MapCodec<RiceCropRoot> CODEC = simpleCodec(RiceCropRoot::new);
 
-    @SuppressWarnings("unchecked")
     @Override
-    public MapCodec codec() {
+    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.BushBlock> codec() {
         return CODEC;
     }
 
@@ -49,6 +46,7 @@ public class RiceCropRoot extends BushBlock implements BonemealableBlock, Liquid
             Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D),
             Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D) };
 
+    @SuppressWarnings("this-escape")
     public RiceCropRoot(Properties p_i48437_1_) {
         super(p_i48437_1_);
         this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0).setValue(SUPPORTING, false));
@@ -180,7 +178,7 @@ public class RiceCropRoot extends BushBlock implements BonemealableBlock, Liquid
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
+    public boolean canPlaceLiquid(net.minecraft.world.entity.player.Player player, BlockGetter worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
         return false;
     }
 

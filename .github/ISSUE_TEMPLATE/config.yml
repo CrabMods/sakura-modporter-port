@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ModPorter migration issues
+    url: https://github.com/CrabMods/modporter/issues
+    about: Report migration failures and reusable rule improvements in ModPorter.

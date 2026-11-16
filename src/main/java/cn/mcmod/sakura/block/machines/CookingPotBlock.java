@@ -1,5 +1,10 @@
 package cn.mcmod.sakura.block.machines;
 
+import javax.annotation.Nullable;
+
+import cn.mcmod.sakura.block.entity.BlockEntityRegistry;
+import cn.mcmod.sakura.block.entity.CookingPotBlockEntity;
+import cn.mcmod.sakura.tags.SakuraBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -7,8 +12,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -35,21 +40,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
-
-import cn.mcmod.sakura.block.entity.BlockEntityRegistry;
-import cn.mcmod.sakura.block.entity.CookingPotBlockEntity;
-import cn.mcmod.sakura.tags.SakuraBlockTags;
-import com.mojang.serialization.MapCodec;
-
-import javax.annotation.Nullable;
-
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 public class CookingPotBlock extends BaseEntityBlock {
-    public static final MapCodec<CookingPotBlock> CODEC = simpleCodec(p -> new CookingPotBlock());
+    public static final com.mojang.serialization.MapCodec<CookingPotBlock> CODEC = simpleCodec(CookingPotBlock::new);
 
-    @SuppressWarnings("unchecked")
     @Override
-    public MapCodec codec() {
+    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.BaseEntityBlock> codec() {
         return CODEC;
+    }
+
+
+    public CookingPotBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -60,6 +62,7 @@ public class CookingPotBlock extends BaseEntityBlock {
     protected static final VoxelShape SHAPE_WITH_TRAY = Shapes.or(SHAPE,
             Block.box(0.0D, -1.0D, 0.0D, 16.0D, 0.0D, 16.0D));
 
+    @SuppressWarnings("this-escape")
     public CookingPotBlock() {
         super(Properties.of().noOcclusion().strength(0.5F, 5.0F).sound(SoundType.LANTERN));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)
@@ -97,34 +100,28 @@ public class CookingPotBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    protected net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack itemstack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult result) {
+        net.minecraft.world.item.ItemStack stack = itemstack;
         BlockEntity blockentity = level.getBlockEntity(pos);
         if (!(blockentity instanceof CookingPotBlockEntity cookingPot)) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return net.minecraft.world.ItemInteractionResult.FAIL;
         }
         IFluidHandlerItem handler = FluidUtil.getFluidHandler(stack.copyWithCount(1))
                 .orElse(null);
         if (handler != null && handler instanceof FluidBucketWrapper) {
-            FluidUtil.interactWithFluidHandler(player, hand, cookingPot.getFluidTank());
+            FluidUtil.interactWithFluidHandler(player, handIn, cookingPot.getFluidTank().orElse(null));
             cookingPot.inventoryChanged();
-            return ItemInteractionResult.SUCCESS;
+            return net.minecraft.world.ItemInteractionResult.SUCCESS;
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-    }
 
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        BlockEntity be = level.getBlockEntity(pos);
-        if (!(be instanceof CookingPotBlockEntity menuProvider)) {
-            return InteractionResult.FAIL;
-        }
-        if (player.isShiftKeyDown()) {
+        net.minecraft.world.item.ItemStack heldStack = itemstack;
+        if (heldStack.isEmpty() && player.isShiftKeyDown()) {
             level.setBlockAndUpdate(pos, state.setValue(OPEN, state.getValue(OPEN) ? false : true));
             level.playSound(null, pos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 0.7F, 1.0F);
         } else if (!level.isClientSide()) {
-            player.openMenu(menuProvider, pos);
+        	((ServerPlayer) player).openMenu(cookingPot, pos);
         }
-        return InteractionResult.SUCCESS;
+        return net.minecraft.world.ItemInteractionResult.SUCCESS;
     }
 
     @SuppressWarnings("deprecation")

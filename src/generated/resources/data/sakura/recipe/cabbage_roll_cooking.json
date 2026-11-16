@@ -1,35 +1,34 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "fluid": {
-    "amount": 125,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "tag": "c:salad_ingredients/cabbage"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 125,
+        "fluidTag": "c:water/water"
     },
-    [
-      {
-        "tag": "c:raw_chicken"
-      },
-      {
-        "tag": "c:raw_pork"
-      },
-      {
-        "tag": "c:raw_beef"
-      },
-      {
-        "tag": "c:raw_mutton"
-      },
-      {
-        "tag": "c:fishes"
-      }
-    ]
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 1,
-    "id": "sakura:cabbage_roll"
-  }
+    "ingredients": [
+        {
+            "tag": "c:salad_ingredients/cabbage"
+        },
+        [
+            {
+                "tag": "c:raw_chicken"
+            },
+            {
+                "tag": "c:raw_pork"
+            },
+            {
+                "tag": "c:raw_beef"
+            },
+            {
+                "tag": "c:raw_mutton"
+            },
+            {
+                "tag": "c:fishes"
+            }
+        ]
+    ],
+    "recipeTime": 200,
+    "result": {
+        "item": "sakura:cabbage_roll"
+    }
 }

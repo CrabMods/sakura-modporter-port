@@ -1,0 +1,13 @@
+.gradle/
+build/
+run/
+target-local.properties
+*.log
+hs_err_pid*
+replay_pid*
+
+# Optional local private build sidecar and Python cache
+/.minecraft-mod-testing/
+/.agents/skills/minecraft-mod-testing/
+/.modporter/private-framework-local/
+__pycache__/

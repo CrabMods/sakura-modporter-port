@@ -1,6 +1,6 @@
 {
   "type": "sakura:stone_mortar",
-  "experience": 0,
+  "experience": 0.0,
   "ingredients": [
     {
       "item": "minecraft:sugar_cane"
@@ -10,11 +10,10 @@
   "results": [
     {
       "count": 3,
-      "id": "minecraft:sugar"
+      "item": "minecraft:sugar"
     },
     {
-      "count": 1,
-      "id": "sakura:molasses"
+      "item": "sakura:molasses"
     }
   ]
 }

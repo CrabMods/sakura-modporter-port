@@ -1,0 +1,25 @@
+ModPorter
+Copyright 2026 ModPorter contributors
+
+ModPorter is licensed under the Apache License, Version 2.0.
+
+This repository redistributes the following public ModPorter build and runtime
+adapter files under the Apache License, Version 2.0:
+
+- AGENTS.md
+- gradle/modporter-testing.gradle
+- mod-build.cmd
+- mod-build.ps1
+- scripts/Invoke-ModporterRuntimeSession.ps1
+- scripts/modporter_build.py
+- scripts/prepare_candidate_import.py
+- scripts/run_gradle.py
+- scripts/runtime_process_inventory.ps1
+- scripts/tests/test_modporter_build.py
+- scripts/tests/test_prepare_candidate_import.py
+- scripts/tests/test_public_runtime_session.py
+
+See MODPORTER-ADAPTER-LICENSE for the complete Apache License 2.0 terms.
+These adapter files are separate from the generated upstream mod source and
+assets, which retain their original ownership and MIT licensing under LICENSE.
+The adapter layer does not relicense the generated mod.

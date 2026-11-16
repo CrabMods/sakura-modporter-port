@@ -1,0 +1,63 @@
+{
+  "candidate": {
+    "displayName": "Sakura Mod (Unofficial Candidate)",
+    "issues": "https://github.com/CrabMods/modporter/issues",
+    "kind": "developer research baseline",
+    "modId": "sakura",
+    "repository": "https://github.com/crabsatellite/sakura-modporter-port",
+    "validationScope": "bootstrap / inventory / logs; not item behavior verified",
+    "version": "1.0.10-1.21.1-modporter.1"
+  },
+  "generatedSupportSources": [
+    "src/main/java/com/modporter/generated/sakura/compat/ConditionalRecipe.java",
+    "src/main/java/com/modporter/generated/sakura/compat/LazyOptional.java",
+    "src/main/java/com/modporter/generated/sakura/compat/ModPorterAbstractTreeGrower.java",
+    "src/main/java/com/modporter/generated/sakura/compat/RenderUtils.java"
+  ],
+  "generator": {
+    "invocation": [
+      "java",
+      "-jar",
+      "modporter-0.4.0-all.jar",
+      "port",
+      "--src",
+      "<clean-git-archive>",
+      "--out",
+      "<new-empty-output>",
+      "--add-tool-credit"
+    ],
+    "jarFile": "modporter-0.4.0-all.jar",
+    "jarSha256": "1134fa8ae04d50d904396fc2b59b77d7e668464f8dd63cfcf4c2eb521d37a9f4",
+    "license": "Apache-2.0",
+    "name": "ModPorter",
+    "release": {
+      "checksumsAssetId": 753349090,
+      "checksumsSha256": "ce63491c10f56991376c637714733bf4500449731b2e26afaa4a970114f795c5",
+      "checksumsUrl": "https://github.com/CrabMods/modporter/releases/download/v0.4.0/SHA256SUMS",
+      "id": 446586135,
+      "jarAssetId": 753349091,
+      "jarAssetUrl": "https://github.com/CrabMods/modporter/releases/download/v0.4.0/modporter-0.4.0-all.jar",
+      "publishedAt": "2026-11-16T03:50:07Z",
+      "tag": "v0.4.0",
+      "url": "https://github.com/CrabMods/modporter/releases/tag/v0.4.0"
+    },
+    "repository": "https://github.com/CrabMods/modporter",
+    "version": "0.4.0"
+  },
+  "policy": {
+    "implementationTimestampRemoved": true,
+    "metadataAndPackagingEditsOnly": true,
+    "modLogicHandPatches": false,
+    "reproducibleArchiveFlags": true,
+    "upstreamRelicensed": false
+  },
+  "runtimeComponents": [],
+  "schemaVersion": 1,
+  "supportLicense": "MODPORTER-SUPPORT-LICENSE",
+  "upstream": {
+    "commit": "0201301e5aa371d7f0816b1d786ca89e99936912",
+    "license": "MIT",
+    "repository": "https://github.com/0999312/Sakura_mod.git",
+    "tree": "ef9f417b0ff116654add3b45c5b632df60cbabdd"
+  }
+}

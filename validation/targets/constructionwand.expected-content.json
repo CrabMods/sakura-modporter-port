@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "targetModId": "constructionwand",
+  "source": {
+    "repository": "https://github.com/Theta-Dev/ConstructionWand.git",
+    "commit": "bc64f11a7d799e921995821878a031bcfde4e22a",
+    "derivation": "All DeferredRegister<Item> ITEMS.register literals in ModItems; the same source adds every registered default stack to vanilla creative tabs.",
+    "files": [
+      {
+        "path": "src/main/java/thetadev/constructionwand/items/ModItems.java",
+        "sha256": "7c8d2499ff43950412f61f8f7be0363be8329e33c4f8aad8afc33dc698492f03"
+      }
+    ]
+  },
+  "expectedRegisteredItemIds": [
+    "constructionwand:core_angel",
+    "constructionwand:core_destruction",
+    "constructionwand:diamond_wand",
+    "constructionwand:infinity_wand",
+    "constructionwand:iron_wand",
+    "constructionwand:stone_wand"
+  ],
+  "iconEvidenceExceptions": []
+}

@@ -1,16 +1,15 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "ingredients": [
-    {
-      "item": "sakura:mochi"
-    },
-    {
-      "item": "sakura:sakuraleaves"
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "item": "sakura:mochi"
+        },
+        {
+            "item": "sakura:sakuraleaves"
+        }
+    ],
+    "result": {
+        "id": "sakura:mochi_sakura"
     }
-  ],
-  "result": {
-    "count": 1,
-    "id": "sakura:mochi_sakura"
-  }
 }

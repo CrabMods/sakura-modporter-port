@@ -1,0 +1,52 @@
+name: Candidate build
+on:
+  push:
+    branches: ["1.*"]
+  pull_request:
+    branches: ["1.*"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Test public build adapters
+        run: |
+          python -B -m unittest discover -s scripts/tests -p "test_*.py"
+          python -B -m unittest discover -s validation/scripts/tests -p "test_*.py"
+      - name: Build the research candidate
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          & ./mod-build.ps1 build -- --no-daemon --console=plain
+          exit $LASTEXITCODE
+      - name: Record candidate checksums
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $files = @(Get-ChildItem build/libs/*.jar -File)
+          if ($files.Count -eq 0) { throw "No candidate JAR was produced" }
+          $lines = foreach ($file in $files) {
+            $hash = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            "$hash  $($file.Name)"
+          }
+          $lines | Set-Content build/libs/SHA256SUMS -Encoding ascii
+      - uses: actions/upload-artifact@v7
+        with:
+          name: research-candidate
+          path: |
+            build/libs/*.jar
+            build/libs/SHA256SUMS
+          if-no-files-found: error
+          retention-days: 14

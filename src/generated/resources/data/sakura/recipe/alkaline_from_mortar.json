@@ -1,20 +1,19 @@
 {
-  "type": "sakura:stone_mortar",
-  "experience": 0,
-  "ingredients": [
-    {
-      "tag": "c:stones"
-    }
-  ],
-  "recipeTime": 200,
-  "results": [
-    {
-      "count": 1,
-      "id": "minecraft:cobblestone"
-    },
-    {
-      "count": 2,
-      "id": "sakura:alkaline"
-    }
-  ]
+    "type": "sakura:stone_mortar",
+    "experience": 0.0,
+    "ingredients": [
+        {
+            "tag": "c:stones"
+        }
+    ],
+    "recipeTime": 200,
+    "results": [
+        {
+            "item": "minecraft:cobblestone"
+        },
+        {
+            "count": 2,
+            "item": "sakura:alkaline"
+        }
+    ]
 }

@@ -1,5 +1,7 @@
 package cn.mcmod.sakura.block.crops;
 
+import cn.mcmod.sakura.block.BlockRegistry;
+import cn.mcmod.sakura.item.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
@@ -12,16 +14,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import cn.mcmod.sakura.block.BlockRegistry;
-import cn.mcmod.sakura.item.ItemRegistry;
-import com.mojang.serialization.MapCodec;
 
 public class RiceCrop extends CropBlock {
-    public static final MapCodec<RiceCrop> CODEC = simpleCodec(RiceCrop::new);
+    public static final com.mojang.serialization.MapCodec<RiceCrop> CODEC = simpleCodec(RiceCrop::new);
 
-    @SuppressWarnings("unchecked")
     @Override
-    public MapCodec codec() {
+    public com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.CropBlock> codec() {
         return CODEC;
     }
 

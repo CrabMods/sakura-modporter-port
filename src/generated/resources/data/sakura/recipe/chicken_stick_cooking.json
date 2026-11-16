@@ -1,17 +1,20 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "ingredients": [
-    {
-      "tag": "c:raw_chicken"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "null_fluid": true
     },
-    {
-      "tag": "c:bamboo"
+    "ingredients": [
+        {
+            "tag": "c:raw_chicken"
+        },
+        {
+            "tag": "c:bamboo"
+        }
+    ],
+    "recipeTime": 200,
+    "result": {
+        "count": 2,
+        "item": "sakura:chicken_stick"
     }
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 2,
-    "id": "sakura:chicken_stick"
-  }
 }

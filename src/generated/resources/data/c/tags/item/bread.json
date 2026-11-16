@@ -1,7 +1,7 @@
 {
-  "values": [
-    "#c:bread/wheat",
-    "#c:bread/buckwheat",
-    "#c:bread/rice"
-  ]
+    "values": [
+        "#c:bread/wheat",
+        "#c:bread/buckwheat",
+        "#c:bread/rice"
+    ]
 }

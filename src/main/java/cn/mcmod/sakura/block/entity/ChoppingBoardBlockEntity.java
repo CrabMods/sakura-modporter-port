@@ -1,8 +1,15 @@
 package cn.mcmod.sakura.block.entity;
 
+import java.util.List;
+import java.util.Optional;
+import javax.annotation.Nullable;
+import cn.mcmod.sakura.block.machines.ChoppingBoardBlock;
+import cn.mcmod.sakura.recipes.ChoppingRecipe;
+import cn.mcmod.sakura.recipes.RecipeTypeRegistry;
+import cn.mcmod_mmf.mmlib.block.entity.SyncedBlockEntity;
+import cn.mcmod_mmf.mmlib.utils.LevelUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -13,42 +20,46 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import com.modporter.generated.sakura.compat.LazyOptional;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
-import cn.mcmod.sakura.block.machines.ChoppingBoardBlock;
-import cn.mcmod.sakura.recipes.ChoppingRecipe;
-import cn.mcmod.sakura.recipes.RecipeTypeRegistry;
-import cn.mcmod_mmf.mmlib.block.entity.SyncedBlockEntity;
-import cn.mcmod_mmf.mmlib.utils.LevelUtils;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import com.modporter.generated.sakura.compat.LazyOptional;
 
-import java.util.List;
-import java.util.Optional;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+
+
 
 public class ChoppingBoardBlockEntity extends SyncedBlockEntity {
+
     private final ItemStackHandler inventory;
+
+    private final LazyOptional<IItemHandler> inputHandler;
+
     private ResourceLocation lastRecipeID;
-    
+
     private int recipeTime;
+
     private int recipeTimeTotal;
 
     public ChoppingBoardBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.CHOPPING_BOARD.get(), pos, state);
         inventory = createHandler();
+        inputHandler = LazyOptional.of(() -> inventory);
     }
 
     @Override
-    public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+    protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
         super.loadAdditional(compound, registries);
         inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
         recipeTime = compound.getInt("RecipeTime");
@@ -62,7 +73,7 @@ public class ChoppingBoardBlockEntity extends SyncedBlockEntity {
         compound.putInt("RecipeTime", this.recipeTime);
         compound.putInt("RecipeTimeTotal", this.recipeTimeTotal);
     }
-    
+
     public int getRecipeTime() {
         return recipeTime;
     }
@@ -70,81 +81,59 @@ public class ChoppingBoardBlockEntity extends SyncedBlockEntity {
     public boolean processStoredItemUsingTool(ItemStack toolStack, @Nullable Player player) {
         if (level == null)
             return false;
-
         Optional<ChoppingRecipe> matchingRecipe = getMatchingRecipe(new RecipeWrapper(inventory), toolStack, player);
-
         matchingRecipe.ifPresent(recipe -> {
             this.recipeTimeTotal = recipe.getRecipeTime();
-            
-            int fortuneLevel = level.registryAccess().lookup(net.minecraft.core.registries.Registries.ENCHANTMENT)
-                    .flatMap(reg -> reg.get(Enchantments.FORTUNE))
-                    .map(holder -> EnchantmentHelper.getItemEnchantmentLevel(holder, toolStack))
-                    .orElse(0);
-            List<ItemStack> results = recipe.rollByproducts(level.random, fortuneLevel);
+            List<ItemStack> results = recipe.rollByproducts(level.random, player.registryAccess().lookup(net.minecraft.core.registries.Registries.ENCHANTMENT)
+                    .flatMap(registry -> registry.get(Enchantments.FORTUNE))
+                    .map(holder -> net.minecraft.world.item.enchantment.EnchantmentHelper.getItemEnchantmentLevel(holder, toolStack))
+                    .orElse(0));
             for (ItemStack resultStack : results) {
                 Direction direction = getBlockState().getValue(ChoppingBoardBlock.FACING).getCounterClockWise();
-                LevelUtils.spawnItemEntity(level, resultStack.copy(),
-                        worldPosition.getX() + 0.5 + (direction.getStepX() * 0.2), worldPosition.getY() + 0.2,
-                        worldPosition.getZ() + 0.5 + (direction.getStepZ() * 0.2), direction.getStepX() * 0.2F, 0.0F,
-                        direction.getStepZ() * 0.2F);
+                LevelUtils.spawnItemEntity(level, resultStack.copy(), worldPosition.getX() + 0.5 + (direction.getStepX() * 0.2), worldPosition.getY() + 0.2, worldPosition.getZ() + 0.5 + (direction.getStepZ() * 0.2), direction.getStepX() * 0.2F, 0.0F, direction.getStepZ() * 0.2F);
             }
             if (player != null) {
                 toolStack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
             } else {
-                // In 1.21, ItemStack.hurt(int, RandomSource, ServerPlayer) was removed
-                // Use hurtAndBreak with a null-safe approach
-                toolStack.setDamageValue(toolStack.getDamageValue() + 1);
-                if (toolStack.getDamageValue() >= toolStack.getMaxDamage()) {
-                    toolStack.setCount(0);
-                }
+                                toolStack.setDamageValue(toolStack.getDamageValue() + 1);
+
+                    if (toolStack.getDamageValue() >= toolStack.getMaxDamage()) {
+                            toolStack.setCount(0);
+                    }
             }
             playProcessingSound(toolStack, getStoredItem());
-            if(this.recipeTime < recipeTimeTotal - 1) {
+            if (this.recipeTime < recipeTimeTotal - 1) {
                 this.recipeTime++;
             } else {
-                if(!setResult(recipe))
+                if (!setResult(recipe))
                     removeItem();
             }
         });
-
         return matchingRecipe.isPresent();
     }
 
-    private Optional<ChoppingRecipe> getMatchingRecipe(RecipeWrapper recipeWrapper, ItemStack toolStack,
-            @Nullable Player player) {
+    private Optional<ChoppingRecipe> getMatchingRecipe(RecipeWrapper recipeWrapper, ItemStack toolStack, @Nullable Player player) {
         if (level == null)
             return Optional.empty();
-
         if (lastRecipeID != null) {
-            Optional<RecipeHolder<ChoppingRecipe>> recipeOpt = level.getRecipeManager()
-                    .getAllRecipesFor(RecipeTypeRegistry.CHOPPING_RECIPE_TYPE.get()).stream()
-                    .filter(holder -> holder.id().equals(lastRecipeID)).findFirst();
-            if (recipeOpt.isPresent()) {
-                ChoppingRecipe recipe = recipeOpt.get().value();
-                if (recipe.matches(recipeWrapper, level) && recipe.getTool().test(toolStack)) {
-                    return Optional.of(recipe);
-                }
-            } else {
-                lastRecipeID = null;
+            RecipeHolder<?> recipe = level.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.CHOPPING_RECIPE_TYPE.get()).stream().filter(now -> now.id().equals(lastRecipeID)).findFirst().get();
+            if (recipe.value() instanceof ChoppingRecipe choppingRecipe && choppingRecipe.matches(recipeWrapper, level) && (choppingRecipe).getTool().test(toolStack)) {
+                return Optional.of((ChoppingRecipe) recipe.value());
             }
         }
-
-        List<RecipeHolder<ChoppingRecipe>> recipeList = level.getRecipeManager()
-                .getRecipesFor(RecipeTypeRegistry.CHOPPING_RECIPE_TYPE.get(), recipeWrapper, level);
+        List<RecipeHolder<ChoppingRecipe>> recipeList = level.getRecipeManager().getRecipesFor(RecipeTypeRegistry.CHOPPING_RECIPE_TYPE.get(), recipeWrapper, level);
         if (recipeList.isEmpty()) {
             if (player != null)
                 player.displayClientMessage(Component.translatable("sakura.block.chopping_board.invalid_item"), true);
             return Optional.empty();
         }
         Optional<ChoppingRecipe> recipe = recipeList.stream()
-                .map(RecipeHolder::value)
-                .filter(cuttingRecipe -> cuttingRecipe.getTool().test(toolStack)).findFirst();
+                .map(RecipeHolder::value).filter(cuttingRecipe -> cuttingRecipe.getTool().test(toolStack)).findFirst();
         if (!recipe.isPresent()) {
             if (player != null)
                 player.displayClientMessage(Component.translatable("sakura.block.chopping_board.invalid_tool"), true);
             return Optional.empty();
         }
-        // Find the holder to get the ID
         lastRecipeID = recipeList.stream()
                 .filter(h -> h.value() == recipe.get()).findFirst()
                 .map(RecipeHolder::id).orElse(null);
@@ -152,7 +141,7 @@ public class ChoppingBoardBlockEntity extends SyncedBlockEntity {
     }
 
     public void playProcessingSound(ItemStack tool, ItemStack boardItem) {
-        if (tool.is(net.minecraft.world.item.Items.SHEARS)) {
+        if (tool.is(Tags.Items.TOOLS_SHEAR)) {
             playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
         } else if (boardItem.getItem() instanceof BlockItem blockItem) {
             Block block = blockItem.getBlock();
@@ -165,8 +154,7 @@ public class ChoppingBoardBlockEntity extends SyncedBlockEntity {
 
     public void playSound(SoundEvent sound, float volume, float pitch) {
         if (level != null)
-            level.playSound(null, worldPosition.getX() + 0.5F, worldPosition.getY() + 0.5F, worldPosition.getZ() + 0.5F,
-                    sound, SoundSource.BLOCKS, volume, pitch);
+            level.playSound(null, worldPosition.getX() + 0.5F, worldPosition.getY() + 0.5F, worldPosition.getZ() + 0.5F, sound, SoundSource.BLOCKS, volume, pitch);
     }
 
     public boolean addItem(ItemStack itemStack) {
@@ -177,17 +165,14 @@ public class ChoppingBoardBlockEntity extends SyncedBlockEntity {
         }
         return false;
     }
-    
+
     public boolean setResult(ChoppingRecipe recipe) {
-        ItemStack resultItem = recipe.getResultItem(level.registryAccess());
+        ItemStack resultItem = recipe.getResultItem(null);
         if (!resultItem.isEmpty()) {
-            if(resultItem.getCount() > 1) {
-                for(int i=1;i < resultItem.getCount(); i++) {
+            if (resultItem.getCount() > 1) {
+                for (int i = 1; i < resultItem.getCount(); i++) {
                     Direction direction = getBlockState().getValue(ChoppingBoardBlock.FACING).getCounterClockWise();
-                    LevelUtils.spawnItemEntity(level, resultItem.copy().split(1),
-                            worldPosition.getX() + 0.5 + (direction.getStepX() * 0.2), worldPosition.getY() + 0.2,
-                            worldPosition.getZ() + 0.5 + (direction.getStepZ() * 0.2), direction.getStepX() * 0.2F, 0.0F,
-                            direction.getStepZ() * 0.2F);
+                    LevelUtils.spawnItemEntity(level, resultItem.copy().split(1), worldPosition.getX() + 0.5 + (direction.getStepX() * 0.2), worldPosition.getY() + 0.2, worldPosition.getZ() + 0.5 + (direction.getStepZ() * 0.2), direction.getStepX() * 0.2F, 0.0F, direction.getStepZ() * 0.2F);
                 }
             }
             inventory.setStackInSlot(0, resultItem.copy().split(1));
@@ -218,6 +203,7 @@ public class ChoppingBoardBlockEntity extends SyncedBlockEntity {
         return inventory.getStackInSlot(0).isEmpty();
     }
 
+
     @Override
     protected void inventoryChanged() {
         this.recipeTime = 0;
@@ -227,10 +213,12 @@ public class ChoppingBoardBlockEntity extends SyncedBlockEntity {
     @Override
     public void setRemoved() {
         super.setRemoved();
+        inputHandler.invalidate();
     }
 
     private ItemStackHandler createHandler() {
         return new ItemStackHandler() {
+
             @Override
             public int getSlotLimit(int slot) {
                 return 1;
@@ -241,5 +229,14 @@ public class ChoppingBoardBlockEntity extends SyncedBlockEntity {
                 inventoryChanged();
             }
         };
+    }
+
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                BlockEntityRegistry.CHOPPING_BOARD.get(),
+                (ChoppingBoardBlockEntity blockEntity, net.minecraft.core.Direction side) -> blockEntity.inputHandler.orElse(null));
     }
 }

@@ -1,14 +1,12 @@
 package cn.mcmod.sakura.block.crops;
 
 import net.minecraft.world.level.block.Block;
-import com.mojang.serialization.MapCodec;
 
 public class CropStandBlock extends Block {
-    public static final MapCodec<CropStandBlock> CODEC = simpleCodec(CropStandBlock::new);
+    public static final com.mojang.serialization.MapCodec<CropStandBlock> CODEC = simpleCodec(CropStandBlock::new);
 
-    @SuppressWarnings("unchecked")
     @Override
-    public MapCodec codec() {
+    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.Block> codec() {
         return CODEC;
     }
 

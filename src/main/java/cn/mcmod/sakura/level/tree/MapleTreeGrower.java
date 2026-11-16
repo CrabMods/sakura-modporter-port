@@ -1,29 +1,38 @@
 package cn.mcmod.sakura.level.tree;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.block.grower.TreeGrower;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import javax.annotation.Nullable;
+import com.modporter.generated.sakura.compat.ModPorterAbstractTreeGrower;
 
-import java.util.Optional;
 
-/**
- * Factory for creating TreeGrower instances for maple saplings.
- * In 1.21, TreeGrower is a final record and cannot be extended.
- * Each maple color variant gets its own TreeGrower instance.
- */
-public class MapleTreeGrower {
+public class MapleTreeGrower extends ModPorterAbstractTreeGrower {
+    private final ResourceKey<ConfiguredFeature<?, ?>>  tree;
+    private final ResourceKey<ConfiguredFeature<?, ?>> fancy_tree;
 
-    public static TreeGrower create(String name,
-                                     ResourceKey<ConfiguredFeature<?, ?>> tree,
-                                     ResourceKey<ConfiguredFeature<?, ?>> fancyTree,
-                                     ResourceKey<ConfiguredFeature<?, ?>> bigTree) {
-        // tree = normal tree, fancyTree = secondary variant (10% chance),
-        // bigTree = mega tree (2x2 sapling pattern)
-        return new TreeGrower(name, 0.1f,
-                Optional.of(bigTree), Optional.empty(),
-                Optional.of(tree), Optional.of(fancyTree),
-                Optional.empty(), Optional.empty());
+    public MapleTreeGrower(ResourceKey<ConfiguredFeature<?, ?>> tree,ResourceKey<ConfiguredFeature<?, ?>> fancy_tree) {
+        this.tree = tree;
+        this.fancy_tree = fancy_tree;
     }
 
-    private MapleTreeGrower() {}
+    @Override
+    public boolean growTree(ServerLevel level, ChunkGenerator generator, BlockPos pos, BlockState state, RandomSource random) {
+        // TODO Auto-generated method stub
+        return super.growTree(level, generator, pos, state, random);
+    }
+
+    @Nullable
+    @Override
+    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
+        if (random.nextInt(10) == 0) {
+            return this.fancy_tree;
+        } else {
+            return this.tree;
+        }
+    }
 }

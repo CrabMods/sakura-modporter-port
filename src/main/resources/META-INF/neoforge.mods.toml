@@ -1,0 +1,41 @@
+
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT License"
+issueTrackerURL="https://github.com/CrabMods/modporter/issues"
+[[mods]]
+modId="sakura"
+version="1.0.10-1.21.1-modporter.1"
+displayName="Sakura Mod (Unofficial Candidate)" 
+displayURL="https://github.com/crabsatellite/sakura-modporter-port" 
+logoFile="logo.png"
+credits="MCMOD Modding Group, MMF-Group; Ported with ModPorter: https://github.com/CrabMods/modporter"
+authors="Syameimaru Zheng, Bagu_chan"
+description='''
+Unofficial developer research candidate generated with ModPorter. Validation scope: bootstrap / inventory / logs; not item behavior verified.
+
+A mod that mix Bamboo, WA and MapleTree.
+
+This mod is full of Japanese style, Teishoku, sushi, and lots of foods.
+New battle styles with your katana and kodachi, Cooking with campfire and cooking pot.
+New illager with his katana spawn in Bamboo forest and maple forest!
+New dress: Kimono, yukata and Haori.
+'''
+[[dependencies.sakura]]
+    modId="neoforge"
+    type="required"
+    versionRange="[21.1,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.sakura]]
+    modId="minecraft"
+    type="required"
+    versionRange="[1.21.1,1.22)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.sakura]]
+    modId="mysterious_mountain_lib"
+    type="required"
+    versionRange="[1.0.0,)"
+    ordering="AFTER"
+    side="BOTH"

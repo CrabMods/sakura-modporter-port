@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "sakura:dough_rice"
+            "items": [
+              "sakura:dough_rice"
+            ]
           }
         ]
       },
@@ -20,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_ingredient"
+      "has_ingredient",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "sakura:rice_bread"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

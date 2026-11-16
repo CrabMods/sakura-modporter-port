@@ -1,7 +1,11 @@
 package cn.mcmod.sakura.block.foods;
 
+import cn.mcmod.sakura.block.BlockRegistry;
+import cn.mcmod_mmf.mmlib.item.info.FoodInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -20,25 +24,16 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import cn.mcmod.sakura.block.BlockRegistry;
-import cn.mcmod_mmf.mmlib.item.info.FoodInfo;
-import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class TeishokuBlock extends Block {
-    public static final MapCodec<TeishokuBlock> CODEC = simpleCodec(p -> new TeishokuBlock(null));
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public MapCodec codec() {
-        return CODEC;
-    }
-
     public static final IntegerProperty BITES = IntegerProperty.create("bites", 0, 3);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
     private final FoodInfo info;
+    @SuppressWarnings("this-escape")
     public TeishokuBlock(FoodInfo info) {
-        super(Properties.ofFullCopy(Blocks.OAK_SLAB).noOcclusion());
+        super(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB));
         this.info = info;
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
@@ -58,17 +53,23 @@ public class TeishokuBlock extends Block {
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        ItemStack itemstack = player.getMainHandItem();
+    protected net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack itemstack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (level.isClientSide) {
             if (eat(level, pos, state, player).consumesAction()) {
-                return InteractionResult.SUCCESS;
+                return net.minecraft.world.ItemInteractionResult.SUCCESS;
             }
             if (itemstack.isEmpty()) {
-                return InteractionResult.CONSUME;
+                return net.minecraft.world.ItemInteractionResult.CONSUME;
             }
         }
-        return eat(level, pos, state, player);
+        return switch (eat(level, pos, state, player)) {
+            case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case SUCCESS_NO_ITEM_USED -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
+            case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
+            case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
+            default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
     }
     
     @Override
@@ -86,7 +87,7 @@ public class TeishokuBlock extends Block {
             if (i < 3) {
                 level.setBlock(pos, state.setValue(BITES, Integer.valueOf(i + 1)), 3);
             } else {
-                level.setBlock(pos, BlockRegistry.TEISHOKU_FINISHED.get().defaultBlockState().setValue(FACING, state.getValue(FACING)), 3);
+                level.setBlock(pos, BlockRegistry.TEISHOUKU_FINISHED.get().defaultBlockState().setValue(FACING, state.getValue(FACING)), 3);
             }
 
             return InteractionResult.SUCCESS;

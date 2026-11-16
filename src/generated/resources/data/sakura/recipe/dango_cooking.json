@@ -1,18 +1,18 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "fluid": {
-    "amount": 125,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "tag": "c:dough/rice"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 125,
+        "fluidTag": "c:water/water"
+    },
+    "ingredients": [
+        {
+            "tag": "c:dough/rice"
+        }
+    ],
+    "recipeTime": 200,
+    "result": {
+        "count": 2,
+        "item": "sakura:dango"
     }
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 2,
-    "id": "sakura:dango"
-  }
 }

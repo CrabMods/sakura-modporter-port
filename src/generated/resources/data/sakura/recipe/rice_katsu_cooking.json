@@ -1,24 +1,23 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "fluid": {
-    "amount": 125,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "tag": "sakura:rice/rice"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 125,
+        "fluidTag": "c:water/water"
     },
-    {
-      "item": "sakura:katsu"
-    },
-    {
-      "tag": "c:eggs"
+    "ingredients": [
+        {
+            "tag": "sakura:rice/rice"
+        },
+        {
+            "item": "sakura:katsu"
+        },
+        {
+            "tag": "c:eggs"
+        }
+    ],
+    "recipeTime": 200,
+    "result": {
+        "item": "sakura:rice_pork_fried"
     }
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 1,
-    "id": "sakura:katsu_dish"
-  }
 }

@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "sakura:taro"
+            "items": [
+              "sakura:taro"
+            ]
           }
         ]
       },
@@ -20,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_ingredient"
+      "has_ingredient",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "sakura:taro_bake_from_smoking"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

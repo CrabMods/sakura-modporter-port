@@ -1,22 +1,21 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "ingredients": [
-    {
-      "tag": "sakura:soups"
-    },
-    {
-      "item": "sakura:rice_cooked"
-    },
-    {
-      "item": "sakura:obon"
-    },
-    {
-      "item": "sakura:sashimi"
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "tag": "sakura:soups"
+        },
+        {
+            "item": "sakura:rice_cooked"
+        },
+        {
+            "item": "sakura:obon"
+        },
+        {
+            "item": "sakura:sashimi"
+        }
+    ],
+    "result": {
+        "id": "sakura:teishoku_fish_raw"
     }
-  ],
-  "result": {
-    "count": 1,
-    "id": "sakura:teishoku_fish_raw"
-  }
 }

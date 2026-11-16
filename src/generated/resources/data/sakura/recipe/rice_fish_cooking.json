@@ -1,21 +1,20 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "fluid": {
-    "amount": 125,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "tag": "sakura:rice/rice"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 125,
+        "fluidTag": "c:water/water"
     },
-    {
-      "tag": "c:raw_fishes"
+    "ingredients": [
+        {
+            "tag": "sakura:rice/rice"
+        },
+        {
+            "tag": "c:raw_fishes"
+        }
+    ],
+    "recipeTime": 200,
+    "result": {
+        "item": "sakura:rice_fish"
     }
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 1,
-    "id": "sakura:rice_fish"
-  }
 }

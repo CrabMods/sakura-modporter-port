@@ -1,25 +1,26 @@
 {
-  "type": "sakura:fermenting",
-  "experience": 0,
-  "fluid": {
-    "amount": 200,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "tag": "c:grain"
+    "type": "sakura:fermenting",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 200,
+        "fluidTag": "c:water/water"
     },
-    {
-      "tag": "c:crops/hop"
+    "ingredients": [
+        {
+            "tag": "c:grain"
+        },
+        {
+            "tag": "c:mushrooms/brownmushroom"
+        },
+        {
+            "tag": "c:sugar/sugar"
+        }
+    ],
+    "recipeTime": 800,
+    "result_fluid": {
+        "amount": 100,
+        "fluid": "sakura:beer"
     },
-    {
-      "tag": "c:sugar/sugar"
-    }
-  ],
-  "recipeTime": 800,
-  "result_fluid": {
-    "amount": 100,
-    "id": "sakura:beer"
-  },
-  "results": []
+    "results": [
+    ]
 }

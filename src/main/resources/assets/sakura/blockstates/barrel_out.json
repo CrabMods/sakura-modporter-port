@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "sakura:block/barrel_1" },
-    "facing=south": { "model": "sakura:block/barrel_1", "y": 180 },
-    "facing=west": { "model": "sakura:block/barrel_1", "y": 270 },
-    "facing=east": { "model": "sakura:block/barrel_1", "y": 90 }
-  }
-}

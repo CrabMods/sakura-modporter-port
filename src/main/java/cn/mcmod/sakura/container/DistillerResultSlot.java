@@ -1,13 +1,14 @@
 package cn.mcmod.sakura.container;
 
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
+import cn.mcmod.sakura.block.entity.DistillerBlockEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import cn.mcmod.sakura.block.entity.DistillerBlockEntity;
-
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 public class DistillerResultSlot extends SlotItemHandler {

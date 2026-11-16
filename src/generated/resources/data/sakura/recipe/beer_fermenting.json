@@ -1,25 +1,26 @@
 {
-  "type": "sakura:fermenting",
-  "experience": 0,
-  "fluid": {
-    "amount": 200,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "tag": "c:grain"
+    "type": "sakura:fermenting",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 200,
+        "fluidTag": "c:water/water"
     },
-    {
-      "tag": "c:grain"
+    "ingredients": [
+        {
+            "tag": "c:grain"
+        },
+        {
+            "tag": "c:grain"
+        },
+        {
+            "tag": "c:yeast"
+        }
+    ],
+    "recipeTime": 400,
+    "result_fluid": {
+        "amount": 200,
+        "fluid": "sakura:beer"
     },
-    {
-      "tag": "c:yeast"
-    }
-  ],
-  "recipeTime": 400,
-  "result_fluid": {
-    "amount": 200,
-    "id": "sakura:beer"
-  },
-  "results": []
+    "results": [
+    ]
 }

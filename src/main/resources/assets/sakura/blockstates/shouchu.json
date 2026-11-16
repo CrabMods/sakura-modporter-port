@@ -1,7 +1,52 @@
 {
-  "variants": {
-    "": {
-      "model": "sakura:block/shouchu"
+    "variants": {
+        "level=0": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=1": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=2": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=3": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=4": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=5": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=6": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=7": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=8": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=9": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=10": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=11": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=12": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=13": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=14": {
+            "model": "sakura:block/shouchu"
+        },
+        "level=15": {
+            "model": "sakura:block/shouchu"
+        }
     }
-  }
 }

@@ -1,24 +1,26 @@
 {
-  "type": "sakura:fermenting",
-  "experience": 10,
-  "fluid": {
-    "amount": 500,
-    "fluid": "sakura:doburoku"
-  },
-  "ingredients": [
-    {
-      "tag": "c:dust/charcoal"
-    }
-  ],
-  "recipeTime": 500,
-  "result_fluid": {
-    "amount": 250,
-    "id": "sakura:sake"
-  },
-  "results": [
-    {
-      "count": 2,
-      "id": "sakura:sake_kasu"
-    }
-  ]
+    "type": "sakura:fermenting",
+    "experience": 10.0,
+    "fluid": {
+        "amount": 500,
+        "fluid": "sakura:doburoku",
+        "nbt": {
+        }
+    },
+    "ingredients": [
+        {
+            "tag": "c:dust/charcoal"
+        }
+    ],
+    "recipeTime": 500,
+    "result_fluid": {
+        "amount": 250,
+        "fluid": "sakura:sake"
+    },
+    "results": [
+        {
+            "count": 2,
+            "item": "sakura:sake_kasu"
+        }
+    ]
 }

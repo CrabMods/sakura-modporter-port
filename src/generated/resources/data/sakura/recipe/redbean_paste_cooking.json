@@ -1,24 +1,24 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "fluid": {
-    "amount": 125,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "tag": "c:crops/redbean"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 125,
+        "fluidTag": "c:water/water"
     },
-    {
-      "tag": "c:crops/redbean"
-    },
-    {
-      "tag": "c:sugar"
+    "ingredients": [
+        {
+            "tag": "c:crops/redbean"
+        },
+        {
+            "tag": "c:crops/redbean"
+        },
+        {
+            "tag": "c:sugar"
+        }
+    ],
+    "recipeTime": 200,
+    "result": {
+        "count": 2,
+        "item": "sakura:red_bean_paste"
     }
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 2,
-    "id": "sakura:red_bean_paste"
-  }
 }

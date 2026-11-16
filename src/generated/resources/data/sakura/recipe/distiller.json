@@ -1,24 +1,24 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "I": {
-      "tag": "c:ingots/iron"
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+        "I": {
+            "tag": "c:ingots/iron"
+        },
+        "P": {
+            "tag": "minecraft:logs"
+        },
+        "S": {
+            "tag": "c:lumber"
+        }
     },
-    "P": {
-      "tag": "minecraft:logs"
+    "pattern": [
+        "ISI",
+        "PPP",
+        "III"
+    ],
+    "result": {
+        "id": "sakura:distiller"
     },
-    "S": {
-      "tag": "c:lumber"
-    }
-  },
-  "pattern": [
-    "ISI",
-    "PPP",
-    "III"
-  ],
-  "result": {
-    "count": 1,
-    "id": "sakura:distiller"
-  }
+    "show_notification": true
 }

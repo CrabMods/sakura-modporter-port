@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "sakura:item/bucket_fluid",
-    "layer1": "sakura:item/bucket_cover"
-  }
-}

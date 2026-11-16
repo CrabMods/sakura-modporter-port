@@ -1,15 +1,15 @@
 package cn.mcmod.sakura.events;
 
+import cn.mcmod.sakura.block.BlockRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.event.level.BlockEvent.BlockToolModificationEvent;
-import cn.mcmod.sakura.block.BlockRegistry;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 @EventBusSubscriber()
 public class TreeEvent {
@@ -23,17 +23,13 @@ public class TreeEvent {
 
             stripLog(event, BlockRegistry.SAKURA_WOOD.get(), BlockRegistry.STRIPPED_SAKURA_WOOD.get());
             stripLog(event, BlockRegistry.MAPLE_WOOD.get(), BlockRegistry.STRIPPED_MAPLE_WOOD.get());
-
-            stripLog(event, BlockRegistry.UME_LOG.get(), BlockRegistry.STRIPPED_UME_LOG.get());
-            stripLog(event, BlockRegistry.UME_WOOD.get(), BlockRegistry.STRIPPED_UME_WOOD.get());
         }
     }
 
     private static void stripLog(BlockToolModificationEvent event, Block log, Block stripped_log) {
         BlockState origin = event.getState();
         if (origin.is(log)) {
-            event.getLevel().playSound(event.getPlayer(), event.getPos(), SoundEvents.AXE_STRIP, SoundSource.BLOCKS,
-                    1.0F, 1.0F);
+            event.getLevel().playSound(event.getPlayer(), event.getPos(), SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
             event.setFinalState(stripped_log.withPropertiesOf(origin));
         }
     }

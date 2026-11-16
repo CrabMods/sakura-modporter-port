@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "sakura:block/bamboo_block",
-    "top": "sakura:block/bamboo_block",
-    "side": "sakura:block/bamboo_block"
-  }
-}

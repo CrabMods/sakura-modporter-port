@@ -1,7 +1,52 @@
 {
-  "variants": {
-    "": {
-      "model": "sakura:block/beer"
+    "variants": {
+        "level=0": {
+            "model": "sakura:block/beer"
+        },
+        "level=1": {
+            "model": "sakura:block/beer"
+        },
+        "level=2": {
+            "model": "sakura:block/beer"
+        },
+        "level=3": {
+            "model": "sakura:block/beer"
+        },
+        "level=4": {
+            "model": "sakura:block/beer"
+        },
+        "level=5": {
+            "model": "sakura:block/beer"
+        },
+        "level=6": {
+            "model": "sakura:block/beer"
+        },
+        "level=7": {
+            "model": "sakura:block/beer"
+        },
+        "level=8": {
+            "model": "sakura:block/beer"
+        },
+        "level=9": {
+            "model": "sakura:block/beer"
+        },
+        "level=10": {
+            "model": "sakura:block/beer"
+        },
+        "level=11": {
+            "model": "sakura:block/beer"
+        },
+        "level=12": {
+            "model": "sakura:block/beer"
+        },
+        "level=13": {
+            "model": "sakura:block/beer"
+        },
+        "level=14": {
+            "model": "sakura:block/beer"
+        },
+        "level=15": {
+            "model": "sakura:block/beer"
+        }
     }
-  }
 }

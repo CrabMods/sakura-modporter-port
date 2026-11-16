@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "sakura:sakura_log"
+            "items": [
+              "sakura:sakura_log"
+            ]
           }
         ]
       },
@@ -20,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_item"
+      "has_item",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "sakura:sakura_lumber_from_wood"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

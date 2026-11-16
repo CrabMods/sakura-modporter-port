@@ -1,12 +1,6 @@
 package cn.mcmod.sakura.compat.jei;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
+import java.util.List;
 import cn.mcmod.sakura.SakuraMod;
 import cn.mcmod.sakura.block.BlockRegistry;
 import cn.mcmod.sakura.client.gui.CookingPotScreen;
@@ -17,7 +11,6 @@ import cn.mcmod.sakura.compat.jei.category.ChoppingCategory;
 import cn.mcmod.sakura.compat.jei.category.CookingPotCategory;
 import cn.mcmod.sakura.compat.jei.category.DistillerCategory;
 import cn.mcmod.sakura.compat.jei.category.FermenterCategory;
-import cn.mcmod.sakura.compat.jei.category.L2ISCategory;
 import cn.mcmod.sakura.compat.jei.category.StoneMortarCategory;
 import cn.mcmod.sakura.container.CookingPotContainer;
 import cn.mcmod.sakura.container.DistillerContainer;
@@ -27,50 +20,43 @@ import cn.mcmod.sakura.recipes.ChoppingRecipe;
 import cn.mcmod.sakura.recipes.CookingPotRecipe;
 import cn.mcmod.sakura.recipes.DistillerRecipe;
 import cn.mcmod.sakura.recipes.FermenterRecipe;
-import cn.mcmod.sakura.recipes.LiquidToItemRecipe;
-import cn.mcmod.sakura.recipes.LiquidToItemRegistry;
 import cn.mcmod.sakura.recipes.RecipeTypeRegistry;
 import cn.mcmod.sakura.recipes.StoneMortarRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
-
-import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
-    public static final ResourceLocation PLUGIN_ID = SakuraJeiInfo.PLUGIN_ID;
+
+    public static final ResourceLocation PLUGIN_ID = ResourceLocation.fromNamespaceAndPath(SakuraMod.MODID, "jei_plugin");
 
     private static final Minecraft MC = Minecraft.getInstance();
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    private static <T extends Recipe<?>> List<T> findRecipesByType(RecipeType<T> type) {
-        return (List<T>) MC.level.getRecipeManager().getAllRecipesFor((RecipeType) type).stream()
-                .map(holder -> ((RecipeHolder<?>) holder).value()).collect(java.util.stream.Collectors.toList());
+    private static <C extends net.minecraft.world.item.crafting.RecipeInput, T extends Recipe<C>> List<T> findRecipesByType(RecipeType<T> type) {
+        return MC.level.getRecipeManager().getAllRecipesFor(type).stream().map(RecipeHolder::value).toList();
     }
-    
-    public static final mezz.jei.api.recipe.RecipeType<CookingPotRecipe> COOKING_POT_JEI_TYPE = 
-            mezz.jei.api.recipe.RecipeType.create(SakuraMod.MODID, "cooking", CookingPotRecipe.class);
-    
-    public static final mezz.jei.api.recipe.RecipeType<StoneMortarRecipe> STONE_MORTAR_JEI_TYPE = 
-            mezz.jei.api.recipe.RecipeType.create(SakuraMod.MODID, "stone_mortar", StoneMortarRecipe.class);
-    
-    public static final mezz.jei.api.recipe.RecipeType<FermenterRecipe> FERMENTER_JEI_TYPE = 
-            mezz.jei.api.recipe.RecipeType.create(SakuraMod.MODID, "fermenting", FermenterRecipe.class);
-    
-    public static final mezz.jei.api.recipe.RecipeType<DistillerRecipe> DISTILLER_JEI_TYPE = 
-            mezz.jei.api.recipe.RecipeType.create(SakuraMod.MODID, "distillation", DistillerRecipe.class);
-    
-    public static final mezz.jei.api.recipe.RecipeType<ChoppingRecipe> CHOPPING_JEI_TYPE =
-            mezz.jei.api.recipe.RecipeType.create(SakuraMod.MODID, "chopping", ChoppingRecipe.class);
 
-    public static final mezz.jei.api.recipe.RecipeType<LiquidToItemRecipe> L2IS_JEI_TYPE =
-            mezz.jei.api.recipe.RecipeType.create(SakuraMod.MODID, "liquid_to_item", LiquidToItemRecipe.class);
+    public static final mezz.jei.api.recipe.RecipeType<CookingPotRecipe> COOKING_POT_JEI_TYPE = mezz.jei.api.recipe.RecipeType.create(SakuraMod.MODID, "cooking", CookingPotRecipe.class);
+
+    public static final mezz.jei.api.recipe.RecipeType<StoneMortarRecipe> STONE_MORTAR_JEI_TYPE = mezz.jei.api.recipe.RecipeType.create(SakuraMod.MODID, "stone_mortar", StoneMortarRecipe.class);
+
+    public static final mezz.jei.api.recipe.RecipeType<FermenterRecipe> FERMENTER_JEI_TYPE = mezz.jei.api.recipe.RecipeType.create(SakuraMod.MODID, "fermenting", FermenterRecipe.class);
+
+    public static final mezz.jei.api.recipe.RecipeType<DistillerRecipe> DISTILLER_JEI_TYPE = mezz.jei.api.recipe.RecipeType.create(SakuraMod.MODID, "distillation", DistillerRecipe.class);
+
+    public static final mezz.jei.api.recipe.RecipeType<ChoppingRecipe> CHOPPING_JEI_TYPE = mezz.jei.api.recipe.RecipeType.create(SakuraMod.MODID, "chopping", ChoppingRecipe.class);
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
@@ -79,7 +65,6 @@ public class JEIPlugin implements IModPlugin {
         registry.addRecipeCategories(new FermenterCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new DistillerCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new ChoppingCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new L2ISCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -89,9 +74,6 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipes(FERMENTER_JEI_TYPE, findRecipesByType(RecipeTypeRegistry.FERMENTER_RECIPE_TYPE.get()));
         registration.addRecipes(DISTILLER_JEI_TYPE, findRecipesByType(RecipeTypeRegistry.DISTILLER_RECIPE_TYPE.get()));
         registration.addRecipes(CHOPPING_JEI_TYPE, findRecipesByType(RecipeTypeRegistry.CHOPPING_RECIPE_TYPE.get()));
-        registration.addRecipes(L2IS_JEI_TYPE, LiquidToItemRegistry.getRecipes());
-        registration.addIngredientInfo(SakuraJeiInfo.tataraInfoStack(), VanillaTypes.ITEM_STACK,
-                Component.translatable(SakuraJeiInfo.TATARA_INFO_KEY));
     }
 
     @Override
@@ -101,7 +83,6 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.FERMENTER.get()), FERMENTER_JEI_TYPE);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.DISTILLER.get()), DISTILLER_JEI_TYPE);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.CHOPPING_BOARD.get()), CHOPPING_JEI_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.BARREL_OUT.get()), L2IS_JEI_TYPE);
     }
 
     @Override
@@ -114,15 +95,14 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(CookingPotContainer.class,null, COOKING_POT_JEI_TYPE, 0, 9, 10, 36);
-        registration.addRecipeTransferHandler(StoneMortarContainer.class,null, STONE_MORTAR_JEI_TYPE, 0, 4, 6, 36);
-        registration.addRecipeTransferHandler(FermenterContainer.class, null,FERMENTER_JEI_TYPE, 0, 3, 6, 36);
-        registration.addRecipeTransferHandler(DistillerContainer.class, null,DISTILLER_JEI_TYPE, 0, 3, 6, 36);
+        registration.addRecipeTransferHandler(CookingPotContainer.class, null, COOKING_POT_JEI_TYPE, 0, 9, 10, 36);
+        registration.addRecipeTransferHandler(StoneMortarContainer.class, null, STONE_MORTAR_JEI_TYPE, 0, 4, 6, 36);
+        registration.addRecipeTransferHandler(FermenterContainer.class, null, FERMENTER_JEI_TYPE, 0, 3, 6, 36);
+        registration.addRecipeTransferHandler(DistillerContainer.class, null, DISTILLER_JEI_TYPE, 0, 3, 6, 36);
     }
 
     @Override
     public ResourceLocation getPluginUid() {
         return PLUGIN_ID;
     }
-
 }

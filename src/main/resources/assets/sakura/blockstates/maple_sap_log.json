@@ -1,74 +1,26 @@
 {
   "variants": {
-    "axis=x,exhaustion=0": {
+    "axis=x,exhaustion=false": {
       "model": "sakura:block/maple_sap_log_horizontal",
       "x": 90,
       "y": 90
     },
-    "axis=y,exhaustion=0": {
+    "axis=y,exhaustion=false": {
       "model": "sakura:block/maple_sap_log"
     },
-    "axis=z,exhaustion=0": {
+    "axis=z,exhaustion=false": {
       "model": "sakura:block/maple_sap_log_horizontal",
       "x": 90
     },
-    "axis=x,exhaustion=1": {
-      "model": "sakura:block/maple_sap_log_horizontal",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y,exhaustion=1": {
-      "model": "sakura:block/maple_sap_log"
-    },
-    "axis=z,exhaustion=1": {
-      "model": "sakura:block/maple_sap_log_horizontal",
-      "x": 90
-    },
-    "axis=x,exhaustion=2": {
-      "model": "sakura:block/maple_sap_log_horizontal",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y,exhaustion=2": {
-      "model": "sakura:block/maple_sap_log"
-    },
-    "axis=z,exhaustion=2": {
-      "model": "sakura:block/maple_sap_log_horizontal",
-      "x": 90
-    },
-    "axis=x,exhaustion=3": {
-      "model": "sakura:block/maple_sap_log_horizontal",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y,exhaustion=3": {
-      "model": "sakura:block/maple_sap_log"
-    },
-    "axis=z,exhaustion=3": {
-      "model": "sakura:block/maple_sap_log_horizontal",
-      "x": 90
-    },
-    "axis=x,exhaustion=4": {
-      "model": "sakura:block/maple_sap_log_horizontal",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y,exhaustion=4": {
-      "model": "sakura:block/maple_sap_log"
-    },
-    "axis=z,exhaustion=4": {
-      "model": "sakura:block/maple_sap_log_horizontal",
-      "x": 90
-    },
-    "axis=x,exhaustion=5": {
+    "axis=x,exhaustion=true": {
       "model": "sakura:block/maple_nosap_log_horizontal",
       "x": 90,
       "y": 90
     },
-    "axis=y,exhaustion=5": {
+    "axis=y,exhaustion=true": {
       "model": "sakura:block/maple_nosap_log"
     },
-    "axis=z,exhaustion=5": {
+    "axis=z,exhaustion=true": {
       "model": "sakura:block/maple_nosap_log_horizontal",
       "x": 90
     }

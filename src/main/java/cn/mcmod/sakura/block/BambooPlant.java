@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -23,16 +24,20 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.common.ItemAbilities;
-import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 @SuppressWarnings("deprecation")
 public class BambooPlant extends Block implements BonemealableBlock {
-    public static final MapCodec<BambooPlant> CODEC = simpleCodec(p -> new BambooPlant());
+    public static final com.mojang.serialization.MapCodec<BambooPlant> CODEC = simpleCodec(BambooPlant::new);
 
-    @SuppressWarnings("unchecked")
     @Override
-    public MapCodec codec() {
+    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.Block> codec() {
         return CODEC;
+    }
+
+
+    public BambooPlant(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     private static final VoxelShape SHAPE = Block.box(6D, 0.0D, 6D, 10D, 16.0D, 10D);
@@ -43,8 +48,9 @@ public class BambooPlant extends Block implements BonemealableBlock {
     public static final int AGE_THIN_BAMBOO = 0;
     public static final int AGE_THICK_BAMBOO = 1;
 
+    @SuppressWarnings("this-escape")
     public BambooPlant() {
-        super(Properties.ofFullCopy(Blocks.BAMBOO));
+        super(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO));
         this.registerDefaultState(this.stateDefinition.any().setValue(LEAVES, BambooLeaves.NONE));
     }
 
@@ -89,11 +95,11 @@ public class BambooPlant extends Block implements BonemealableBlock {
 
     @Override
     public void randomTick(BlockState state, ServerLevel levelIn, BlockPos pos, RandomSource random) {
-        if(CommonHooks.canCropGrow(levelIn, pos, state, random.nextInt(3) == 0)) {
+        if(net.neoforged.neoforge.common.CommonHooks.canCropGrow(levelIn, pos, state, random.nextInt(3) == 0)) {
             if (levelIn.getRawBrightness(pos.above(), 0) >= 6) {
                 growingTick(state, levelIn, pos, random); 
                 spreadingTick(levelIn, pos, random);
-                CommonHooks.fireCropGrowPost(levelIn, pos, state);
+                net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(levelIn, pos, state);
             }
         }
     }

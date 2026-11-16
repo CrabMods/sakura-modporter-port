@@ -1,11 +1,15 @@
 package cn.mcmod.sakura.recipes;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import net.minecraft.core.HolderLookup;
+
+import cn.mcmod.sakura.base.FluidIngredient;
+import cn.mcmod.sakura.base.AbstractRecipe;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -14,11 +18,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.RecipeMatcher;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
-import cn.mcmod.sakura.recipes.base.FluidIngredient;
-import cn.mcmod.sakura.recipes.base.AbstractRecipe;
-
-import java.util.List;
-
 public class FermenterRecipe extends AbstractRecipe {
 
     @Expose
@@ -47,7 +46,7 @@ public class FermenterRecipe extends AbstractRecipe {
     }
 
     public FluidIngredient getRequiredFluid() {
-        return inputFluid != null ? inputFluid : FluidIngredient.EMPTY;
+        return inputFluid == null ? FluidIngredient.EMPTY : inputFluid;
     }
 
     public boolean matchesWithFluid(FluidStack fluid, RecipeWrapper inv, Level worldIn) {
@@ -94,7 +93,7 @@ public class FermenterRecipe extends AbstractRecipe {
     }
     
     public FluidStack getResultFluid() {
-        return outputFluid != null ? outputFluid : FluidStack.EMPTY;
+        return outputFluid == null ? FluidStack.EMPTY : outputFluid;
     }
 
     @Override

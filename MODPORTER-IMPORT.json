@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "toolRelease": "https://github.com/CrabMods/modporter/releases/tag/v0.4.0",
+  "toolSourceCommit": "da08fa920f733f572a45329b25b78a712de47452",
+  "toolSourceTree": "6d932849fa41e29880205cb3dfffa2ef53e154a5",
+  "toolJarSha256": "1134fa8ae04d50d904396fc2b59b77d7e668464f8dd63cfcf4c2eb521d37a9f4",
+  "exporterSha256": "0250f995115805e4b99a85231093a36a7833d6f5c5499e8a865197b6a8bf73d3",
+  "exportTreeSha256": "cf6b747a083719af53dfafe0933a48f380c9e9ed2b2a60cf75c1f33c5dc4ec6c",
+  "importedProductionFiles": 2407,
+  "productionFilesByteIdentical": true,
+  "modLogicHandPatches": false,
+  "excludedUncompiledUpstreamPaths": [
+    "backup/"
+  ],
+  "additionalLayers": [
+    "Public build and runtime adapters",
+    "Independent exact-JAR validation harness",
+    "Developer documentation and repository metadata"
+  ],
+  "buildHook": "apply from: 'gradle/modporter-testing.gradle'"
+}

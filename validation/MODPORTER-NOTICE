@@ -1,0 +1,9 @@
+ModPorter
+Copyright 2026 ModPorter contributors
+
+ModPorter is licensed under the Apache License, Version 2.0.
+
+This validation project redistributes scripts/hidden_desktop.ps1 from
+ModPorter's public Minecraft benchmark infrastructure. See LICENSE for the
+complete Apache License 2.0 terms applying to the validation infrastructure.
+The packaged target mod retains its own upstream license.

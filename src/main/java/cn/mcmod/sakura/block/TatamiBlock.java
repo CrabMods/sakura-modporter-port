@@ -1,18 +1,16 @@
 package cn.mcmod.sakura.block;
 
+import cn.mcmod_mmf.mmlib.block.BaseHorizonBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
-import cn.mcmod_mmf.mmlib.block.BaseHorizonBlock;
-import com.mojang.serialization.MapCodec;
 
 public class TatamiBlock extends BaseHorizonBlock {
-    public static final MapCodec<TatamiBlock> CODEC = simpleCodec(TatamiBlock::new);
+    public static final com.mojang.serialization.MapCodec<TatamiBlock> CODEC = simpleCodec(TatamiBlock::new);
 
-    @SuppressWarnings("unchecked")
     @Override
-    public MapCodec codec() {
+    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.HorizontalDirectionalBlock> codec() {
         return CODEC;
     }
 

@@ -1,25 +1,25 @@
 package cn.mcmod.sakura.data;
 
+import cn.mcmod.sakura.data.loot.SakuraBlockLoot;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import cn.mcmod.sakura.data.loot.SakuraBlockLoot;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 import net.minecraft.core.HolderLookup;
+import java.util.concurrent.CompletableFuture;
+
+
 
 public class SakuraLootTableProvider extends LootTableProvider {
 
     public SakuraLootTableProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(packOutput, Set.of()
-                ,List.of(new SubProviderEntry(
+		super(packOutput, Set.of(), List.of(new SubProviderEntry(
                 SakuraBlockLoot::new,
-                LootContextParamSets.BLOCK)),
-                lookupProvider
-        );
-    }
+                LootContextParamSets.BLOCK)), lookupProvider);
+	}
     
 //    private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> tables = ImmutableList.of(Pair.of(SakuraBlockLoot::new, LootContextParamSets.BLOCK));
 

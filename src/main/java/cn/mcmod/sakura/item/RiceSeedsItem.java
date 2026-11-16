@@ -1,17 +1,20 @@
 package cn.mcmod.sakura.item;
 
+import cn.mcmod.sakura.SakuraMod;
+import cn.mcmod.sakura.block.BlockRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import cn.mcmod.sakura.SakuraMod;
-import cn.mcmod.sakura.block.BlockRegistry;
+import net.minecraft.core.component.DataComponents;
+
 
 public class RiceSeedsItem extends ItemNameBlockItem {
 
@@ -31,7 +34,8 @@ public class RiceSeedsItem extends ItemNameBlockItem {
                         Component.translatable(SakuraMod.MODID + "." + "block.rice.invalid_placement"), true);
             }
         }
-        // isEdible() removed in 1.21; rice seeds are not edible, so just return the placement result
-        return result;
+        return !result.consumesAction() && this.components().has(DataComponents.FOOD)
+                ? this.use(context.getLevel(), context.getPlayer(), context.getHand()).getResult()
+                : result;
     }
 }

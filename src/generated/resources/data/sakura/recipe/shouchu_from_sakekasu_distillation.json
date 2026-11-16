@@ -1,22 +1,23 @@
 {
-  "type": "sakura:distillation",
-  "experience": 0,
-  "fluid": {
-    "amount": 500,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "item": "sakura:sake_kasu"
+    "type": "sakura:distillation",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 500,
+        "fluidTag": "c:water/water"
     },
-    {
-      "item": "sakura:sake_kasu"
-    }
-  ],
-  "recipeTime": 400,
-  "result_fluid": {
-    "amount": 100,
-    "id": "sakura:shouchu"
-  },
-  "results": []
+    "ingredients": [
+        {
+            "item": "sakura:sake_kasu"
+        },
+        {
+            "item": "sakura:sake_kasu"
+        }
+    ],
+    "recipeTime": 400,
+    "result_fluid": {
+        "amount": 100,
+        "fluid": "sakura:shouchu"
+    },
+    "results": [
+    ]
 }

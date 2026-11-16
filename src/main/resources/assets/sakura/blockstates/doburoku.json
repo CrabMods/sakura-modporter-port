@@ -1,7 +1,52 @@
 {
-  "variants": {
-    "": {
-      "model": "sakura:block/doburoku"
+    "variants": {
+        "level=0": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=1": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=2": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=3": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=4": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=5": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=6": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=7": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=8": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=9": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=10": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=11": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=12": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=13": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=14": {
+            "model": "sakura:block/doburoku"
+        },
+        "level=15": {
+            "model": "sakura:block/doburoku"
+        }
     }
-  }
 }

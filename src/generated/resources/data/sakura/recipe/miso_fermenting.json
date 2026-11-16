@@ -1,30 +1,34 @@
 {
-  "type": "sakura:fermenting",
-  "experience": 0,
-  "fluid": {
-    "amount": 1000,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "tag": "c:crops/soybean"
+    "type": "sakura:fermenting",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 1000,
+        "fluidTag": "c:water/water"
     },
-    {
-      "tag": "c:crops/soybean"
+    "ingredients": [
+        {
+            "tag": "c:crops/soybean"
+        },
+        {
+            "tag": "c:crops/soybean"
+        },
+        {
+            "tag": "c:kouji"
+        }
+    ],
+    "recipeTime": 800,
+    "result_fluid": {
+        "amount": 0,
+        "fluid": "minecraft:empty"
     },
-    {
-      "tag": "c:kouji"
-    }
-  ],
-  "recipeTime": 800,
-  "results": [
-    {
-      "count": 4,
-      "id": "sakura:miso"
-    },
-    {
-      "count": 4,
-      "id": "sakura:soysauce"
-    }
-  ]
+    "results": [
+        {
+            "count": 4,
+            "item": "sakura:miso"
+        },
+        {
+            "count": 4,
+            "item": "sakura:soysauce"
+        }
+    ]
 }

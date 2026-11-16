@@ -1,25 +1,25 @@
 {
-  "type": "farmersdelight:cutting",
-  "ingredients": [
-    {
-      "item": "sakura:cabbage"
-    }
-  ],
-  "tool": {
-    "tag": "c:tools/knives"
-  },
-  "result": [
-    {
-      "item": {
-        "id": "sakura:sliced_cabbage",
-        "count": 2
-      }
-    }
-  ],
-  "neoforge:conditions": [
-    {
-      "modid": "farmersdelight",
-      "type": "neoforge:mod_loaded"
-    }
-  ]
+    "neoforge:conditions": [
+        {
+            "modid": "farmersdelight",
+            "type": "neoforge:mod_loaded"
+        }
+    ],
+    "type": "farmersdelight:cutting",
+    "ingredients": [
+        {
+            "item": "sakura:cabbage"
+        }
+    ],
+    "tool": {
+        "tag": "c:tools/knife"
+    },
+    "result": [
+        {
+            "item": {
+                "id": "sakura:sliced_cabbage",
+                "count": 2
+            }
+        }
+    ]
 }

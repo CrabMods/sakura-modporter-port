@@ -1,0 +1,29 @@
+ModPorter Candidate Notice
+
+Sakura Mod (Unofficial Candidate)
+
+This is a developer research baseline generated from:
+  https://github.com/0999312/Sakura_mod.git@0201301e5aa371d7f0816b1d786ca89e99936912
+
+Generator:
+  ModPorter 0.4.0
+  JAR: modporter-0.4.0-all.jar
+  JAR SHA-256: 1134fa8ae04d50d904396fc2b59b77d7e668464f8dd63cfcf4c2eb521d37a9f4
+
+Candidate repository:
+  https://github.com/crabsatellite/sakura-modporter-port
+
+Migration issues:
+  https://github.com/CrabMods/modporter/issues
+
+Validation scope:
+  bootstrap / inventory / logs; not item behavior verified
+
+The original authors, copyright notices, MIT license, source, and assets keep
+their original ownership and licensing. ModPorter does not relicense upstream
+code or assets. This candidate is unofficial and is offered for community
+review; use and redistribution remain subject to the preserved upstream terms.
+
+Generated compatibility/support sources are listed in MODPORTER-PROVENANCE.json. The copied ModPorter Apache-2.0 terms are in MODPORTER-SUPPORT-LICENSE.
+
+This generated tree contains no canonical shared runtime component.

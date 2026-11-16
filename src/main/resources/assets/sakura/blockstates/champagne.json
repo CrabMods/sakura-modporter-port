@@ -1,7 +1,52 @@
 {
-  "variants": {
-    "": {
-      "model": "sakura:block/champagne"
+    "variants": {
+        "level=0": {
+            "model": "sakura:block/champagne"
+        },
+        "level=1": {
+            "model": "sakura:block/champagne"
+        },
+        "level=2": {
+            "model": "sakura:block/champagne"
+        },
+        "level=3": {
+            "model": "sakura:block/champagne"
+        },
+        "level=4": {
+            "model": "sakura:block/champagne"
+        },
+        "level=5": {
+            "model": "sakura:block/champagne"
+        },
+        "level=6": {
+            "model": "sakura:block/champagne"
+        },
+        "level=7": {
+            "model": "sakura:block/champagne"
+        },
+        "level=8": {
+            "model": "sakura:block/champagne"
+        },
+        "level=9": {
+            "model": "sakura:block/champagne"
+        },
+        "level=10": {
+            "model": "sakura:block/champagne"
+        },
+        "level=11": {
+            "model": "sakura:block/champagne"
+        },
+        "level=12": {
+            "model": "sakura:block/champagne"
+        },
+        "level=13": {
+            "model": "sakura:block/champagne"
+        },
+        "level=14": {
+            "model": "sakura:block/champagne"
+        },
+        "level=15": {
+            "model": "sakura:block/champagne"
+        }
     }
-  }
 }

@@ -1,12 +1,12 @@
 package cn.mcmod.sakura.client.gui;
 
+import cn.mcmod.sakura.SakuraMod;
+import cn.mcmod.sakura.container.StoneMortarContainer;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import cn.mcmod.sakura.SakuraMod;
-import cn.mcmod.sakura.container.StoneMortarContainer;
 
 public class StoneMortarScreen extends AbstractContainerScreen<StoneMortarContainer> {
 
@@ -22,6 +22,7 @@ public class StoneMortarScreen extends AbstractContainerScreen<StoneMortarContai
 
     @Override
     public void render(GuiGraphics ms, final int mouseX, final int mouseY, float partialTicks) {
+        this.renderBackground(ms, mouseX, mouseY, partialTicks);
         super.render(ms, mouseX, mouseY, partialTicks);
         this.renderTooltip(ms, mouseX, mouseY);
     }
@@ -38,14 +39,12 @@ public class StoneMortarScreen extends AbstractContainerScreen<StoneMortarContai
         if (this.minecraft == null) {
             return;
         }
-//        RenderUtils.setup(BACKGROUND_TEXTURE);
+        //        RenderUtils.setup(BACKGROUND_TEXTURE);
         ms.blit(BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
         int n = this.menu.getRolling();
         ms.blit(BACKGROUND_TEXTURE, this.leftPos + 81, this.topPos + 33, 176, n * 16, 14, 16);
         // Render progress arrow
         int l = this.menu.getProgressionRoll();
         ms.blit(BACKGROUND_TEXTURE, this.leftPos + 80, this.topPos + 49, 190, l * 6, 16, 6);
-
     }
-
 }

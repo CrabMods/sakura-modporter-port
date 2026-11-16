@@ -1,7 +1,52 @@
 {
-  "variants": {
-    "": {
-      "model": "sakura:block/white_wine"
+    "variants": {
+        "level=0": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=1": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=2": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=3": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=4": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=5": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=6": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=7": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=8": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=9": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=10": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=11": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=12": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=13": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=14": {
+            "model": "sakura:block/white_wine"
+        },
+        "level=15": {
+            "model": "sakura:block/white_wine"
+        }
     }
-  }
 }

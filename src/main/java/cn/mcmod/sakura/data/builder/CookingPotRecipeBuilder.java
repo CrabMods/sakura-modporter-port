@@ -1,8 +1,14 @@
 package cn.mcmod.sakura.data.builder;
 
+import java.util.function.Consumer;
+
+import javax.annotation.Nullable;
+
+import com.google.gson.JsonObject;
+
 import cn.mcmod.sakura.recipes.CookingPotRecipe;
 import cn.mcmod.sakura.recipes.RecipeTypeRegistry;
-import cn.mcmod.sakura.recipes.base.FluidIngredient;
+import cn.mcmod.sakura.base.FluidIngredient;
 import net.minecraft.core.NonNullList;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -10,6 +16,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 
 public class CookingPotRecipeBuilder {
@@ -69,13 +76,52 @@ public class CookingPotRecipeBuilder {
         return this;
     }
 
-    public void save(RecipeOutput output, ResourceLocation id) {
-        CookingPotRecipe recipe = new CookingPotRecipe();
-        recipe.output = this.result;
-        recipe.fluidInput = this.fluid;
-        recipe.inputItems = this.ingredients;
-        recipe.experience = this.experience;
-        recipe.recipeTime = this.recipeTime;
-        output.accept(id, recipe, null);
+    public void save(RecipeOutput consumer, ResourceLocation id) {
+        CookingPotRecipeBuilder.Result result = new CookingPotRecipeBuilder.Result(id, this.fluid, this.result, this.ingredients,
+                this.experience, this.recipeTime);
+        consumer.accept(result.getId(), result.recipe, null);
     }
+
+    public static class Result {
+        private final ResourceLocation id;
+        private final CookingPotRecipe recipe = new CookingPotRecipe();
+
+        public Result(ResourceLocation id, FluidIngredient fluid, ItemStack result, NonNullList<Ingredient> ingredients,
+                float exp, int time) {
+            this.id = id;
+            recipe.output = result;
+            recipe.fluidInput = fluid;
+            recipe.inputItems = ingredients;
+            recipe.experience = exp;
+            recipe.recipeTime = time;
+        }
+
+        public void serializeRecipeData(JsonObject json) {
+            JsonObject recipeJson = RecipeTypeRegistry.COOKING_RECIPE_SERIALIZER.get().toJson(recipe);
+            json.add("ingredients", recipeJson.get("ingredients"));
+            json.add("fluid", recipeJson.get("fluid"));
+            json.add("result", recipeJson.get("result"));
+            json.add("experience", recipeJson.get("experience"));
+            json.add("recipeTime", recipeJson.get("recipeTime"));
+        }
+
+        public RecipeSerializer<?> getType() {
+            return RecipeTypeRegistry.COOKING_RECIPE_SERIALIZER.get();
+        }
+
+        public ResourceLocation getId() {
+            return this.id;
+        }
+
+        @Nullable
+        public JsonObject serializeAdvancement() {
+            return null;
+        }
+
+        @Nullable
+        public ResourceLocation getAdvancementId() {
+            return null;
+        }
+    }
+
 }

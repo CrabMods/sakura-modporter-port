@@ -1,20 +1,18 @@
 {
-  "type": "sakura:stone_mortar",
-  "experience": 0,
-  "ingredients": [
-    {
-      "tag": "c:grain/wheat"
-    }
-  ],
-  "recipeTime": 200,
-  "results": [
-    {
-      "count": 1,
-      "id": "sakura:flour"
-    },
-    {
-      "count": 1,
-      "id": "sakura:straw"
-    }
-  ]
+    "type": "sakura:stone_mortar",
+    "experience": 0.0,
+    "ingredients": [
+        {
+            "tag": "c:grain/wheat"
+        }
+    ],
+    "recipeTime": 200,
+    "results": [
+        {
+            "item": "sakura:flour"
+        },
+        {
+            "item": "sakura:straw"
+        }
+    ]
 }

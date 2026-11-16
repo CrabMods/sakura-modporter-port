@@ -33,8 +33,7 @@ public class FallenLeafParticle extends TextureSheetParticle {
         this.hasPhysics = true;
     }
 
-    @Override
-    public void tick() {
+        public void tick() {
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;

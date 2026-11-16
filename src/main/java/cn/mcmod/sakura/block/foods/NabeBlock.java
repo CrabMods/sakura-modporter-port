@@ -1,5 +1,8 @@
 package cn.mcmod.sakura.block.foods;
 
+import cn.mcmod.sakura.block.BlockRegistry;
+import cn.mcmod_mmf.mmlib.block.entity.HeatableBlockEntity;
+import cn.mcmod_mmf.mmlib.item.info.FoodInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -8,6 +11,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -26,27 +31,17 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import cn.mcmod.sakura.block.BlockRegistry;
-import cn.mcmod_mmf.mmlib.block.entity.HeatableBlockEntity;
-import cn.mcmod_mmf.mmlib.item.info.FoodInfo;
-import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class NabeBlock extends Block implements HeatableBlockEntity{
-    public static final MapCodec<NabeBlock> CODEC = simpleCodec(p -> new NabeBlock(null));
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public MapCodec codec() {
-        return CODEC;
-    }
-
     public static final BooleanProperty IS_COOKED = BooleanProperty.create("is_cooked");
     public static final IntegerProperty BITES = IntegerProperty.create("bites", 0, 3);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     protected static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D);
     private final FoodInfo info;
+    @SuppressWarnings("this-escape")
     public NabeBlock(FoodInfo info) {
-        super(Properties.ofFullCopy(BlockRegistry.COOKING_POT.get()));
+        super(BlockBehaviour.Properties.ofFullCopy(BlockRegistry.COOKING_POT.get()));
         this.info = info;
         this.registerDefaultState(this.stateDefinition.any().setValue(IS_COOKED, false).setValue(FACING, Direction.NORTH).setValue(BITES, 0));
     }
@@ -91,17 +86,23 @@ public class NabeBlock extends Block implements HeatableBlockEntity{
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        ItemStack itemstack = player.getMainHandItem();
+    protected net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack itemstack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (level.isClientSide) {
             if (eat(level, pos, state, player).consumesAction()) {
-                return InteractionResult.SUCCESS;
+                return net.minecraft.world.ItemInteractionResult.SUCCESS;
             }
             if (itemstack.isEmpty()) {
-                return InteractionResult.CONSUME;
+                return net.minecraft.world.ItemInteractionResult.CONSUME;
             }
         }
-        return eat(level, pos, state, player);
+        return switch (eat(level, pos, state, player)) {
+            case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case SUCCESS_NO_ITEM_USED -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
+            case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
+            case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
+            default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
     }
     
     @Override

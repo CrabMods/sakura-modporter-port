@@ -20,13 +20,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_sapling"
+      "has_sapling",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "sakura:maple_sapling_green"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

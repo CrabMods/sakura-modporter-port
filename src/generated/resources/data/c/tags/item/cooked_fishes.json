@@ -1,6 +1,6 @@
 {
-  "values": [
-    "#c:cooked_fishes/cod",
-    "#c:cooked_fishes/salmon"
-  ]
+    "values": [
+        "#c:cooked_fishes/cod",
+        "#c:cooked_fishes/salmon"
+    ]
 }

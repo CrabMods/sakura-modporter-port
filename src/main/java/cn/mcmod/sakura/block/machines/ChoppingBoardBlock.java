@@ -1,5 +1,8 @@
 package cn.mcmod.sakura.block.machines;
 
+import cn.mcmod.sakura.block.entity.BlockEntityRegistry;
+import cn.mcmod.sakura.block.entity.ChoppingBoardBlockEntity;
+import cn.mcmod.sakura.tags.SakuraItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -10,8 +13,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -31,26 +34,28 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import cn.mcmod.sakura.block.entity.BlockEntityRegistry;
-import cn.mcmod.sakura.block.entity.ChoppingBoardBlockEntity;
-import cn.mcmod.sakura.tags.SakuraItemTags;
-import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class ChoppingBoardBlock extends BaseEntityBlock {
-    public static final MapCodec<ChoppingBoardBlock> CODEC = simpleCodec(p -> new ChoppingBoardBlock());
+    public static final com.mojang.serialization.MapCodec<ChoppingBoardBlock> CODEC = simpleCodec(ChoppingBoardBlock::new);
 
-    @SuppressWarnings("unchecked")
     @Override
-    public MapCodec codec() {
+    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.BaseEntityBlock> codec() {
         return CODEC;
+    }
+
+
+    public ChoppingBoardBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     protected static final VoxelShape SHAPE_NS = Block.box(0.0D, 0.0D, 4.0D, 16.0D, 2.0D, 12.0D);
     protected static final VoxelShape SHAPE_WE = Block.box(4.0D, 0.0D, 0.0D, 12.0D, 2.0D, 16.0D);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
+    @SuppressWarnings("this-escape")
     public ChoppingBoardBlock() {
-        super(Properties.ofFullCopy(Blocks.OAK_SLAB).noOcclusion());
+        super(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB).noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
@@ -60,64 +65,54 @@ public class ChoppingBoardBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    protected net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack itemstack, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         BlockEntity tileEntity = worldIn.getBlockEntity(pos);
         if (tileEntity instanceof ChoppingBoardBlockEntity board) {
+            net.minecraft.world.item.ItemStack heldStack = itemstack;
             ItemStack offhandStack = player.getOffhandItem();
 
             if (board.isEmpty()) {
                 if (!offhandStack.isEmpty()) {
                     if (handIn.equals(InteractionHand.MAIN_HAND) && !offhandStack.is(SakuraItemTags.OFFHAND_EQUIPMENT)
-                            && !(stack.getItem() instanceof BlockItem)) {
-                        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION; // Pass to off-hand if that item is placeable
+                            && !(heldStack.getItem() instanceof BlockItem)) {
+                        return net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION; // Pass to off-hand if that item is placeable
                     }
                     if (handIn.equals(InteractionHand.OFF_HAND) && offhandStack.is(SakuraItemTags.OFFHAND_EQUIPMENT)) {
-                        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION; // Items in this tag should not be placed from the off-hand
+                        return net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION; // Items in this tag should not be placed from the off-hand
                     }
                 }
-                if (board.addItem(player.getAbilities().instabuild ? stack.copy() : stack)) {
-                    worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_PLACE,
-                            SoundSource.BLOCKS, 1.0F, 0.8F);
-                    return ItemInteractionResult.SUCCESS;
+                if (heldStack.isEmpty()) {
+                    return net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                } else if (board.addItem(player.getAbilities().instabuild ? heldStack.copy() : heldStack)) {
+                    worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
+                    return net.minecraft.world.ItemInteractionResult.SUCCESS;
                 }
-            } else {
-                ItemStack boardStack = board.getStoredItem().copy();
-                if (board.processStoredItemUsingTool(stack, player)) {
-                    spawnCuttingParticles(worldIn, pos, boardStack, 5);
-                    return ItemInteractionResult.SUCCESS;
-                }
-                return ItemInteractionResult.CONSUME;
-            }
-        }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-    }
 
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult hit) {
-        BlockEntity tileEntity = worldIn.getBlockEntity(pos);
-        if (tileEntity instanceof ChoppingBoardBlockEntity board) {
-            if (!board.isEmpty()) {
-                if (board.getRecipeTime() > 0) {
-                    if (player != null)
-                        player.displayClientMessage(Component.translatable("sakura.block.chopping_board.has_chopped"),
-                                true);
-                    return InteractionResult.SUCCESS;
-                } else {
-                    if (!player.isCreative()) {
-                        ItemStack removed = board.removeItem();
-                        if (!player.getInventory().add(removed)) {
-                            Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), removed);
-                        }
-                    } else {
-                        board.removeItem();
-                    }
-                    worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_HIT, SoundSource.BLOCKS,
-                            0.25F, 0.5F);
-                    return InteractionResult.SUCCESS;
+            } else if (!heldStack.isEmpty()) {
+                ItemStack boardStack = board.getStoredItem().copy();
+                if (board.processStoredItemUsingTool(heldStack, player)) {
+                    spawnCuttingParticles(worldIn, pos, boardStack, 5);
+                    return net.minecraft.world.ItemInteractionResult.SUCCESS;
                 }
+                return net.minecraft.world.ItemInteractionResult.CONSUME;
+            } else if (board.getRecipeTime() > 0) {
+                if (player != null)
+                    player.displayClientMessage(Component.translatable("sakura.block.chopping_board.has_chopped"),
+                            true);
+                return net.minecraft.world.ItemInteractionResult.SUCCESS;
+            } else if (handIn.equals(InteractionHand.MAIN_HAND)) {
+                if (!player.isCreative()) {
+                    if (!player.getInventory().add(board.removeItem())) {
+                        Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), board.removeItem());
+                    }
+                } else {
+                    board.removeItem();
+                }
+                worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 0.25F, 0.5F);
+                return net.minecraft.world.ItemInteractionResult.SUCCESS;
             }
         }
-        return InteractionResult.PASS;
+        return net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     public static void spawnCuttingParticles(Level worldIn, BlockPos pos, ItemStack stack, int count) {

@@ -1,6 +1,0 @@
-{
-  "parent": "sakura:block/noren",
-  "textures": {
-    "1": "sakura:block/noren_white"
-  }
-}

@@ -1,0 +1,27 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "Apache-2.0"
+
+[[mods]]
+modId = "exact_jar_validation"
+version = "${file.jarVersion}"
+displayName = "Exact JAR Validation Harness"
+authors = "ModPorter research validation"
+description = '''
+Isolated developer harness for validating an exact packaged candidate JAR.
+'''
+
+[[dependencies.exact_jar_validation]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1.230,21.2)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.exact_jar_validation]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.22)"
+ordering = "NONE"
+side = "BOTH"
+

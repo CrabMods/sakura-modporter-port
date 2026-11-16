@@ -1,13 +1,12 @@
 package cn.mcmod.sakura.container;
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
+import cn.mcmod.sakura.SakuraMod;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import cn.mcmod.sakura.SakuraMod;
-
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.neoforged.neoforge.registries.DeferredHolder;
 public class ContainerRegistry {
     public static final DeferredRegister<MenuType<?>> CONTAINER_TYPES = DeferredRegister
             .create(BuiltInRegistries.MENU, SakuraMod.MODID);
@@ -23,13 +22,4 @@ public class ContainerRegistry {
     
     public static final DeferredHolder<MenuType<?>, MenuType<DistillerContainer>> DISTILLER = CONTAINER_TYPES
             .register("distiller", () -> IMenuTypeExtension.create(DistillerContainer::new));
-
-    public static final DeferredHolder<MenuType<?>, MenuType<CampfirePotContainer>> CAMPFIRE_POT = CONTAINER_TYPES
-            .register("campfire_pot", () -> IMenuTypeExtension.create(CampfirePotContainer::new));
-
-    public static final DeferredHolder<MenuType<?>, MenuType<MapleCauldronContainer>> MAPLE_CAULDRON = CONTAINER_TYPES
-            .register("maple_cauldron", () -> IMenuTypeExtension.create(MapleCauldronContainer::new));
-
-    public static final DeferredHolder<MenuType<?>, MenuType<BarrelOutputContainer>> BARREL_OUTPUT = CONTAINER_TYPES
-            .register("barrel_output", () -> IMenuTypeExtension.create(BarrelOutputContainer::new));
 }

@@ -1,44 +1,107 @@
-> [!IMPORTANT]
-> Work in progress. This is an unofficial port.
+# Sakura ModPorter Port
 
-<p align="center">
-<a href="https://www.curseforge.com/minecraft/mc-mods/sakura"><img src="https://i.imgur.com/o4yFXsE.png" alt="CurseForge Project"/></a>
-<a href="https://www.mcbbs.net/thread-895337-1-1.html"><img src="https://i.imgur.com/s86CBrt.png" alt="MCBBS"/> </a>
-<hr>
-<div align=center><img src="https://i.imgur.com/XcZDLAP.png" alt="Sakura Logo"/></div>
-</p>
+This repository hosts an unofficial developer baseline for bringing
+[Sakura](https://github.com/0999312/Sakura_mod) from Minecraft Forge 1.20.1 to
+NeoForge 1.21.1. It is intended for research, learning, community review, and
+reducing the repetitive work required for a manual port.
 
-Sakura is a new Minecraft mod, currently for Minecraft 1.12.2.
+The `1.21.1` candidate is generated with
+[ModPorter 0.4.0](https://github.com/CrabMods/modporter), a rules-based Forge
+1.20.1 to NeoForge 1.21.1 migration tool. Reusable transformation rules produce
+the mod code; migration fixes belong in ModPorter so the candidate can be
+regenerated. Use this code as a starting point for a reviewed manual port.
 
+This project is not an official Sakura release and is not affiliated with or
+endorsed by Sakura's original authors. Human review and focused playtesting are
+expected before wider distribution.
 
-Inspired by MapleTrees, Bamboo and WA mods, Sakura aims to bring Japanese-styled things to Minecraft.
+## Current status
 
-100+ food, new biomes and new ore.
+Generation and packaged-candidate validation are in progress. The GitHub
+default branch remains `1.20.1` during preparation. After the fresh generated
+source and exact JAR pass the checks below, `1.21.1` will become the default.
 
-New combat styles: To fight with your Katana and Kodachi.
+## Branches
 
-Cooking with campfire and cooking pot, Grinding your food ingredients with Stone Mortar.
+| Branch | Purpose |
+| --- | --- |
+| [`1.20.1`](https://github.com/crabsatellite/sakura-modporter-port/tree/1.20.1) | Current GitHub default while the generated 1.21.1 candidate is prepared |
+| [`1.21.1`](https://github.com/crabsatellite/sakura-modporter-port/tree/1.21.1) | Planned default for the reproducible ModPorter-generated baseline after validation |
+| [`1.21.1-manual`](https://github.com/crabsatellite/sakura-modporter-port/tree/1.21.1-manual) | Preserved historical port with per-mod manual repairs |
 
-Enjoy~
+Future porting work should improve reusable ModPorter rules and regenerate the
+generated branch. The historical manual branch remains unchanged and available
+for comparison.
 
-**THIS MOD IS STILL ALPHA, Use at your own risk.**
+## Source baseline
 
-Sakura 是一个 Minecraft 模组，目前支持的MC版本是 1.12.2.
+Generation is pinned to the public source at
+[`0999312/Sakura_mod@0201301e5aa371d7f0816b1d786ca89e99936912`](https://github.com/0999312/Sakura_mod/tree/0201301e5aa371d7f0816b1d786ca89e99936912),
+which identifies itself as version `1.0.10`. As checked on November 16, 2026,
+the official
+[download catalog](https://www.curseforge.com/minecraft/mc-mods/sakura/files/all)
+lists `1.1.16` for Minecraft `1.20.1`, with no Minecraft `1.21.1` file listed.
+The candidate version follows the pinned public source so developers can
+compare this generated baseline with later upstream releases.
 
-脱胎于 MapleTree 枫树、Bamboo 竹、WA 和风模组，Sakura 致力于将日式风情带入 Minecraft.
+## Validation status
 
-目前模组包含 100 余种食物可供制作、新的生物群系和新的矿石，太刀、打刀等武器，
+The candidate will be considered ready only after each gate records a positive
+result from the freshly generated tree.
 
-篝火和烹饪锅，以及有趣的石磨。
+| Gate | Status |
+| --- | --- |
+| Compile | Pending |
+| Dedicated-server startup | Pending |
+| Client startup | Pending |
+| Saved-world loading and controlled save | Pending |
+| Relevant creative tabs open; every displayed stack is rendered | Pending |
+| Runtime-log audit | Pending |
 
-祝你玩的愉快！
+These checks cover project loading, saved-world loading, the in-game item
+interface, and runtime-log review. Detailed behavior of individual items,
+blocks, recipes, and integrations is the next area for developer review and
+focused playtesting.
 
-**模组仍在开发中，游玩时请注意备份存档，如遇到 Bug 请在此 [发布 Issue](https://github.com/0999312/Sakura_mod/issues)，或到 [MCBBS 帖子](https://www.mcbbs.net/thread-895337-1-1.html) 下留言。**
+## Improving the port
 
+Review the generated source, build it, and test the mod-specific behavior you
+intend to use. A repeatable migration fix should become a ModPorter rule and
+regression test, followed by a fresh generation of this branch.
 
-桜modはMinecraft 1.12.2に対応した新しいmodです。
-紅葉mod, 竹mod, 和風modを元に、Minecraftに和風のものをもたらします。
-100個を超える食料, 新しいバイオームと新しい鉱石が追加されます。また、新しい武器として、刀と小太刀が追加されています。
-キャンプファイヤーや鍋で料理をし、石臼で食材を粉砕できます。
-ごゆっくりお楽しみください。
-**注: このmodはアルファ版です。バグにお気をつけください。**
+Please report migration failures and reusable rule improvements to the
+[ModPorter issue tracker](https://github.com/CrabMods/modporter/issues).
+Candidate-specific failures should include enough detail to reproduce the
+underlying migration problem.
+
+## Authors, copyright, and use
+
+Sakura was created by 0999312 and its contributors. Their original credits,
+MIT license, and 2019 copyright notice are preserved in [LICENSE](LICENSE).
+
+Development and distribution should respect the original authors' wishes,
+copyright, and the licenses that apply to the source and assets.
+
+## License
+
+The original Sakura source and assets remain governed by the MIT License and
+copyright notice preserved in [LICENSE](LICENSE).
+
+The public build and runtime adapter files listed in
+[MODPORTER-ADAPTER-NOTICE](MODPORTER-ADAPTER-NOTICE) are separate ModPorter
+components under the Apache License 2.0; see
+[MODPORTER-ADAPTER-LICENSE](MODPORTER-ADAPTER-LICENSE). The independent
+validation project is covered by
+[validation/LICENSE](validation/LICENSE) and
+[validation/THIRD_PARTY_NOTICES.md](validation/THIRD_PARTY_NOTICES.md).
+These Apache-licensed layers do not relicense the generated upstream mod source
+or assets. Any separately generated ModPorter support sources are identified
+by their own `MODPORTER-SUPPORT-LICENSE` and
+`MODPORTER-SUPPORT-NOTICE` files.
+
+Shared compatibility libraries carry their corresponding source, component
+licenses, and provenance inside their JARs. Their per-file terms are recorded
+in the generated porting manifest.
+
+Detailed generation provenance and the maintenance policy are recorded in
+[PORTING.md](PORTING.md).

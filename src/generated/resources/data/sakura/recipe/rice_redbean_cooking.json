@@ -1,24 +1,23 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "fluid": {
-    "amount": 125,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "tag": "sakura:rice/rice"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 125,
+        "fluidTag": "c:water/water"
     },
-    {
-      "tag": "c:crops/redbean"
-    },
-    {
-      "tag": "c:sugar"
+    "ingredients": [
+        {
+            "tag": "sakura:rice/rice"
+        },
+        {
+            "tag": "c:crops/redbean"
+        },
+        {
+            "tag": "c:sugar"
+        }
+    ],
+    "recipeTime": 200,
+    "result": {
+        "item": "sakura:rice_redbean"
     }
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 1,
-    "id": "sakura:rice_redbean"
-  }
 }

@@ -1,0 +1,164 @@
+plugins {
+    id "java"
+    id("net.neoforged.moddev") version "2.0.140"
+}
+
+group = "com.modporter.validation"
+version = "1.0.0"
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+def targetConfigArgument = providers.gradleProperty("validationTargetConfig")
+    .orElse("targets/sakura.properties")
+    .get()
+def targetConfigFile = file(targetConfigArgument)
+if (!targetConfigFile.isFile()) {
+    throw new GradleException("Validation target config does not exist: ${targetConfigFile}")
+}
+def harnessReceiptArgument = providers.gradleProperty(
+    "validationHarnessReceipt").orElse("").get().trim()
+def harnessReceiptPath = harnessReceiptArgument.isEmpty()
+    ? ""
+    : file(harnessReceiptArgument).absolutePath
+def baselineReceiptArgument = providers.gradleProperty(
+    "validationBaselineReceipt").orElse("").get().trim()
+def baselineReceiptPath = baselineReceiptArgument.isEmpty()
+    ? ""
+    : file(baselineReceiptArgument).absolutePath
+
+def targetProperties = new Properties()
+targetConfigFile.withInputStream { targetProperties.load(it) }
+
+def targetModId = targetProperties.getProperty("targetModId", "").trim()
+def targetJarSha256 = targetProperties.getProperty("targetJarSha256", "").trim().toLowerCase(Locale.ROOT)
+def expectedContentManifestArgument = targetProperties.getProperty(
+    "expectedContentManifestPath", "").trim()
+def expectedContentManifestSha256 = targetProperties.getProperty(
+    "expectedContentManifestSha256", "").trim().toLowerCase(Locale.ROOT)
+if (expectedContentManifestArgument.isEmpty()) {
+    throw new GradleException("expectedContentManifestPath is blank in ${targetConfigFile}")
+}
+def expectedContentManifestFile = file(expectedContentManifestArgument)
+if (!expectedContentManifestFile.isFile()) {
+    throw new GradleException(
+        "Expected-content manifest does not exist: ${expectedContentManifestFile}")
+}
+if (!(expectedContentManifestSha256 ==~ /[0-9a-f]{64}/)) {
+    throw new GradleException(
+        "expectedContentManifestSha256 must be 64 lowercase hexadecimal characters")
+}
+def runtimeDependencies = targetProperties.getProperty("runtimeDependencies", "")
+    .split(";")
+    .collect { it.trim() }
+    .findAll { !it.isEmpty() }
+
+def clientRuntimeDirectory = layout.buildDirectory.dir("validation-runtime/client")
+def serverRuntimeDirectory = layout.buildDirectory.dir("validation-runtime/server")
+
+def prepareValidationClient = tasks.register("prepareValidationClient", Exec) {
+    group = "verification"
+    description = "Stages the exact target JAR and an owned pristine world into a clean client game directory."
+    commandLine(
+        "pwsh", "-NoProfile", "-File", file("scripts/Prepare-ValidationRuntime.ps1"),
+        "-Lane", "client",
+        "-TargetConfig", targetConfigFile.absolutePath,
+        "-HarnessReceipt", harnessReceiptPath,
+        "-BaselineReceipt", baselineReceiptPath
+    )
+}
+
+def prepareValidationServer = tasks.register("prepareValidationServer", Exec) {
+    group = "verification"
+    description = "Stages the exact target JAR into a clean dedicated-server game directory."
+    commandLine(
+        "pwsh", "-NoProfile", "-File", file("scripts/Prepare-ValidationRuntime.ps1"),
+        "-Lane", "server",
+        "-TargetConfig", targetConfigFile.absolutePath,
+        "-HarnessReceipt", harnessReceiptPath,
+        "-BaselineReceipt", baselineReceiptPath
+    )
+}
+
+neoForge {
+    version = project.neo_forge_version
+
+    parchment {
+        minecraftVersion = "1.21.1"
+        mappingsVersion = "2024.11.17"
+    }
+
+    runs {
+        validationClient {
+            client()
+            gameDirectory = clientRuntimeDirectory
+            taskBefore(prepareValidationClient)
+            systemProperty "exactJarValidation.lane", "client"
+            systemProperty "exactJarValidation.expectedModId", targetModId
+            systemProperty "exactJarValidation.expectedJarSha256", targetJarSha256
+            systemProperty "exactJarValidation.expectedJarPath",
+                clientRuntimeDirectory.map { it.file("mods/target-under-test.jar").asFile.absolutePath }.get()
+            systemProperty "exactJarValidation.expectedContentManifestPath",
+                expectedContentManifestFile.absolutePath
+            systemProperty "exactJarValidation.expectedContentManifestSha256",
+                expectedContentManifestSha256
+            systemProperty "exactJarValidation.runtimeDirectory",
+                clientRuntimeDirectory.map { it.asFile.absolutePath }.get()
+            systemProperty "exactJarValidation.receiptPath",
+                harnessReceiptPath
+            systemProperty "exactJarValidation.worldName", "exact_jar_validation"
+            systemProperty "exactJarValidation.maxClientTicks", "2400"
+            programArguments.addAll("--width", "854", "--height", "480")
+            logLevel = org.slf4j.event.Level.INFO
+        }
+
+        validationServer {
+            server()
+            gameDirectory = serverRuntimeDirectory
+            taskBefore(prepareValidationServer)
+            systemProperty "exactJarValidation.lane", "server"
+            systemProperty "exactJarValidation.expectedModId", targetModId
+            systemProperty "exactJarValidation.expectedJarSha256", targetJarSha256
+            systemProperty "exactJarValidation.expectedJarPath",
+                serverRuntimeDirectory.map { it.file("mods/target-under-test.jar").asFile.absolutePath }.get()
+            systemProperty "exactJarValidation.expectedContentManifestPath",
+                expectedContentManifestFile.absolutePath
+            systemProperty "exactJarValidation.expectedContentManifestSha256",
+                expectedContentManifestSha256
+            systemProperty "exactJarValidation.runtimeDirectory",
+                serverRuntimeDirectory.map { it.asFile.absolutePath }.get()
+            systemProperty "exactJarValidation.receiptPath",
+                harnessReceiptPath
+            programArgument "--nogui"
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+
+    mods {
+        exact_jar_validation {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+repositories {
+    maven { url = "https://api.modrinth.com/maven" }
+    maven { url = "https://maven.blamejared.com" }
+    maven { url = "https://maven.theillusivec4.top/" }
+}
+
+dependencies {
+    runtimeDependencies.each { coordinate ->
+        runtimeOnly(coordinate)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.release = 21
+}
+
+tasks.named("jar") {
+    archiveBaseName = "exact-jar-validation"
+}
+
+apply from: 'gradle/modporter-testing.gradle'

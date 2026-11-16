@@ -1,20 +1,20 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": {
-      "item": "sakura:sakuraleaves"
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+        "#": {
+            "item": "sakura:sakuraleaves"
+        },
+        "L": {
+            "tag": "c:lumber"
+        }
     },
-    "L": {
-      "tag": "c:lumber"
-    }
-  },
-  "pattern": [
-    "LLL",
-    "L#L"
-  ],
-  "result": {
-    "count": 1,
-    "id": "sakura:obon"
-  }
+    "pattern": [
+        "LLL",
+        "L#L"
+    ],
+    "result": {
+        "id": "sakura:obon"
+    },
+    "show_notification": true
 }

@@ -1,21 +1,20 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "fluid": {
-    "amount": 125,
-    "tag": "c:food_oil"
-  },
-  "ingredients": [
-    {
-      "item": "sakura:tempura_batter"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 125,
+        "fluidTag": "c:food_oil"
     },
-    {
-      "tag": "c:shrimp"
+    "ingredients": [
+        {
+            "item": "sakura:tempura_batter"
+        },
+        {
+            "tag": "c:shrimp"
+        }
+    ],
+    "recipeTime": 200,
+    "result": {
+        "item": "sakura:tempura"
     }
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 1,
-    "id": "sakura:tempura"
-  }
 }

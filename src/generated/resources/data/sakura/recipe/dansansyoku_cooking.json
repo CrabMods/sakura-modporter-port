@@ -1,24 +1,23 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "fluid": {
-    "amount": 125,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "item": "sakura:dango"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 125,
+        "fluidTag": "c:water/water"
     },
-    {
-      "item": "sakura:sakuraleaves"
-    },
-    {
-      "item": "minecraft:short_grass"
+    "ingredients": [
+        {
+            "item": "sakura:dango"
+        },
+        {
+            "item": "sakura:sakuraleaves"
+        },
+        {
+            "item": "minecraft:short_grass"
+        }
+    ],
+    "recipeTime": 200,
+    "result": {
+        "item": "sakura:dansansyoku"
     }
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 1,
-    "id": "sakura:dansansyoku"
-  }
 }

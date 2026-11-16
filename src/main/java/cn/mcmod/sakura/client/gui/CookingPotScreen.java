@@ -1,13 +1,13 @@
 package cn.mcmod.sakura.client.gui;
 
+import cn.mcmod.sakura.SakuraMod;
+import cn.mcmod.sakura.container.CookingPotContainer;
+import com.modporter.generated.sakura.compat.RenderUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import cn.mcmod.sakura.SakuraMod;
-import cn.mcmod.sakura.container.CookingPotContainer;
-import cn.mcmod.sakura.client.gui.FluidRenderHelper;
 
 public class CookingPotScreen extends AbstractContainerScreen<CookingPotContainer> {
 
@@ -23,6 +23,7 @@ public class CookingPotScreen extends AbstractContainerScreen<CookingPotContaine
 
     @Override
     public void render(GuiGraphics ms, final int mouseX, final int mouseY, float partialTicks) {
+        this.renderBackground(ms, mouseX, mouseY, partialTicks);
         super.render(ms, mouseX, mouseY, partialTicks);
         this.renderTooltip(ms, mouseX, mouseY);
     }
@@ -39,23 +40,19 @@ public class CookingPotScreen extends AbstractContainerScreen<CookingPotContaine
         if (this.minecraft == null) {
             return;
         }
-//        RenderUtils.setup(BACKGROUND_TEXTURE);
-        ms.blit(BACKGROUND_TEXTURE,this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
-
+        //        RenderUtils.setup(BACKGROUND_TEXTURE);
+        ms.blit(BACKGROUND_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
         if (this.menu.isHeated()) {
-            ms.blit(BACKGROUND_TEXTURE,this.leftPos + 101, this.topPos + 52, 176, 0, 18, 18);
+            ms.blit(BACKGROUND_TEXTURE, this.leftPos + 101, this.topPos + 52, 176, 0, 18, 18);
         }
         // Render progress arrow
         int l = this.menu.getCookProgressionScaled();
         ms.blit(BACKGROUND_TEXTURE, this.leftPos + 98, this.topPos + 34, 176, 18, l + 1, 17);
-
-        {
-            var fluidTank = this.menu.tileEntity.getFluidTank();
-            int heightInd = (int) (52.0F * ((float)fluidTank.getFluidAmount() / (float)fluidTank.getCapacity()));
+        this.menu.tileEntity.getFluidTank().ifPresent(fluidTank -> {
+            int heightInd = (int) (52.0F * ((float) fluidTank.getFluidAmount() / (float) fluidTank.getCapacity()));
             if (heightInd > 0) {
-                FluidRenderHelper.renderFluidStack(ms, this.leftPos + 17, this.topPos + 69 - heightInd, 16, heightInd, fluidTank.getFluid());
+                RenderUtils.renderFluidStack(ms, this.leftPos + 17, this.topPos + 69 - heightInd, 16, heightInd, 0.0F, fluidTank.getFluid());
             }
-        }
+        });
     }
-
 }

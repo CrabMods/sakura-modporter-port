@@ -1,16 +1,15 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "ingredients": [
-    {
-      "tag": "minecraft:saplings"
-    },
-    {
-      "tag": "c:dyes/red"
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "tag": "minecraft:saplings"
+        },
+        {
+            "tag": "c:dyes/red"
+        }
+    ],
+    "result": {
+        "id": "sakura:maple_sapling_red"
     }
-  ],
-  "result": {
-    "count": 1,
-    "id": "sakura:maple_sapling_red"
-  }
 }

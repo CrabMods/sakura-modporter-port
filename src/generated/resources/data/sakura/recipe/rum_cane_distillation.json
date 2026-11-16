@@ -1,25 +1,26 @@
 {
-  "type": "sakura:distillation",
-  "experience": 0,
-  "fluid": {
-    "amount": 500,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "item": "minecraft:sugar_cane"
+    "type": "sakura:distillation",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 500,
+        "fluidTag": "c:water/water"
     },
-    {
-      "item": "minecraft:sugar_cane"
+    "ingredients": [
+        {
+            "item": "minecraft:sugar_cane"
+        },
+        {
+            "item": "minecraft:sugar_cane"
+        },
+        {
+            "tag": "c:yeast"
+        }
+    ],
+    "recipeTime": 400,
+    "result_fluid": {
+        "amount": 100,
+        "fluid": "sakura:rum"
     },
-    {
-      "tag": "c:yeast"
-    }
-  ],
-  "recipeTime": 400,
-  "result_fluid": {
-    "amount": 100,
-    "id": "sakura:rum"
-  },
-  "results": []
+    "results": [
+    ]
 }

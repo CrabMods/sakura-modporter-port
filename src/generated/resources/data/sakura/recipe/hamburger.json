@@ -1,19 +1,18 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "ingredients": [
-    {
-      "item": "sakura:bun"
-    },
-    {
-      "item": "sakura:burger"
-    },
-    {
-      "tag": "c:tomatosauce"
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "item": "sakura:bun"
+        },
+        {
+            "item": "sakura:burger"
+        },
+        {
+            "tag": "c:tomatosauce"
+        }
+    ],
+    "result": {
+        "id": "sakura:hamburger"
     }
-  ],
-  "result": {
-    "count": 1,
-    "id": "sakura:hamburger"
-  }
 }

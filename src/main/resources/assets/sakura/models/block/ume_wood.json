@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "sakura:block/ume_log",
-    "side": "sakura:block/ume_log"
-  }
-}

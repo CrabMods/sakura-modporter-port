@@ -1,7 +1,7 @@
 {
-  "values": [
-    "#c:tools/axes",
-    "#c:tools/pickaxes",
-    "#c:tools/shovels"
-  ]
+    "values": [
+        "#c:tools/axes",
+        "#c:tools/pickaxes",
+        "#c:tools/shovels"
+    ]
 }

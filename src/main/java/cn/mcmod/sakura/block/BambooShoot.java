@@ -18,22 +18,26 @@ import net.minecraft.world.level.block.state.properties.BambooLeaves;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.CommonHooks;
-import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 @SuppressWarnings("deprecation")
 public class BambooShoot extends BushBlock implements BonemealableBlock {
-    public static final MapCodec<BambooShoot> CODEC = simpleCodec(p -> new BambooShoot());
+    public static final com.mojang.serialization.MapCodec<BambooShoot> CODEC = simpleCodec(BambooShoot::new);
 
-    @SuppressWarnings("unchecked")
     @Override
-    public MapCodec codec() {
+    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.BushBlock> codec() {
         return CODEC;
+    }
+
+
+    public BambooShoot(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     private static final VoxelShape SHAPE = Block.box(6D, 0.0D, 6D, 10D, 4.0D, 10D);
 
     public BambooShoot() {
-        super(Properties.ofFullCopy(Blocks.BAMBOO_SAPLING));
+        super(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_SAPLING));
     }
 
     @Override
@@ -50,9 +54,9 @@ public class BambooShoot extends BushBlock implements BonemealableBlock {
         if (worldIn.getRawBrightness(pos.above(), 0) > 6) {
             if (worldIn.getBrightness(LightLayer.BLOCK, pos) > 0) {
                 if (rand.nextInt(3) == 0) {
-                    if (CommonHooks.canCropGrow(worldIn, pos, state, true)) {
+                    if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(worldIn, pos, state, true)) {
                         growBamboo(worldIn, pos);
-                        CommonHooks.fireCropGrowPost(worldIn, pos, state);
+                        net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(worldIn, pos, state);
                     }
                 }
             }

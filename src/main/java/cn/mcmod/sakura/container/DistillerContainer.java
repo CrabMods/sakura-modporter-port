@@ -1,8 +1,13 @@
 package cn.mcmod.sakura.container;
 
+import java.util.Objects;
+
+import cn.mcmod.sakura.block.BlockRegistry;
+import cn.mcmod.sakura.block.entity.DistillerBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -14,10 +19,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import cn.mcmod.sakura.block.BlockRegistry;
-import cn.mcmod.sakura.block.entity.DistillerBlockEntity;
-
-import java.util.Objects;
 
 public class DistillerContainer extends AbstractContainerMenu {
 
@@ -26,6 +27,7 @@ public class DistillerContainer extends AbstractContainerMenu {
     private final ContainerData containerData;
     private final ContainerLevelAccess canInteractWithCallable;
 
+    @SuppressWarnings("this-escape")
     public DistillerContainer(final int windowId, final Inventory playerInventory,
             final DistillerBlockEntity tileEntity, ContainerData cookingPotDataIn) {
         super(ContainerRegistry.DISTILLER.get(), windowId);
@@ -79,17 +81,15 @@ public class DistillerContainer extends AbstractContainerMenu {
                 }
 
                 slot.onQuickCraft(itemStack1, itemStack);
-            } else if (index >= 6) {
-            	if (!this.moveItemStackTo(itemStack1, 0, 3, false)) {
-	                if (index >= 6 && index < 33) {
-	                    if (!this.moveItemStackTo(itemStack1, 33, 42, false)) {
-	                        return ItemStack.EMPTY;
-	                    }
-	                } else if (index >= 33 && index < 42 && !this.moveItemStackTo(itemStack1, 6, 33, false)) {
-	                    return ItemStack.EMPTY;
-	                }
+            } else if (index >= 7) {
+                if (index >= 7 && index < 34) {
+                    if (!this.moveItemStackTo(itemStack1, 33, 42, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index >= 33 && index < 42 && !this.moveItemStackTo(itemStack1, 7, 33, false)) {
+                    return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(itemStack1, 6, 42, false)) {
+            } else if (!this.moveItemStackTo(itemStack1, 7, 42, false)) {
                 return ItemStack.EMPTY;
             }
 
@@ -119,6 +119,7 @@ public class DistillerContainer extends AbstractContainerMenu {
         throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
     }
 
+    @SuppressWarnings("this-escape")
     public DistillerContainer(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) {
         this(windowId, playerInventory, getTileEntity(playerInventory, data), new SimpleContainerData(4));
     }

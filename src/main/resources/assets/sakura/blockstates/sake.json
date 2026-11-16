@@ -1,7 +1,52 @@
 {
-  "variants": {
-    "": {
-      "model": "sakura:block/sake"
+    "variants": {
+        "level=0": {
+            "model": "sakura:block/sake"
+        },
+        "level=1": {
+            "model": "sakura:block/sake"
+        },
+        "level=2": {
+            "model": "sakura:block/sake"
+        },
+        "level=3": {
+            "model": "sakura:block/sake"
+        },
+        "level=4": {
+            "model": "sakura:block/sake"
+        },
+        "level=5": {
+            "model": "sakura:block/sake"
+        },
+        "level=6": {
+            "model": "sakura:block/sake"
+        },
+        "level=7": {
+            "model": "sakura:block/sake"
+        },
+        "level=8": {
+            "model": "sakura:block/sake"
+        },
+        "level=9": {
+            "model": "sakura:block/sake"
+        },
+        "level=10": {
+            "model": "sakura:block/sake"
+        },
+        "level=11": {
+            "model": "sakura:block/sake"
+        },
+        "level=12": {
+            "model": "sakura:block/sake"
+        },
+        "level=13": {
+            "model": "sakura:block/sake"
+        },
+        "level=14": {
+            "model": "sakura:block/sake"
+        },
+        "level=15": {
+            "model": "sakura:block/sake"
+        }
     }
-  }
 }

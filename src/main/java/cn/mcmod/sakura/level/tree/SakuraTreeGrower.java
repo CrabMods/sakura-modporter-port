@@ -1,16 +1,20 @@
 package cn.mcmod.sakura.level.tree;
 
-import net.minecraft.world.level.block.grower.TreeGrower;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import com.modporter.generated.sakura.compat.ModPorterAbstractTreeGrower;
 
-import java.util.Optional;
 
-public class SakuraTreeGrower {
-    public static final TreeGrower GROWER = new TreeGrower(
-        "sakura", 0.1f,
-        Optional.of(SakuraTreeFeatures.BIG_SAKURA_KEY), Optional.empty(),
-        Optional.of(SakuraTreeFeatures.SAKURA_KEY), Optional.of(SakuraTreeFeatures.FANCY_SAKURA_KEY),
-        Optional.empty(), Optional.empty()
-    );
+public class SakuraTreeGrower extends ModPorterAbstractTreeGrower {
 
-    private SakuraTreeGrower() {}
+	@Override
+	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean pHasFlowers) {
+        if (random.nextInt(10) == 0) {
+            return SakuraTreeFeatures.FANCY_SAKURA_KEY;
+        } else {
+            return SakuraTreeFeatures.SAKURA_KEY;
+        }
+	}
+
 }

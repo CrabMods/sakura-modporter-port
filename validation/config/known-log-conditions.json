@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 2,
+  "context": {
+    "minecraftVersion": "1.21.1",
+    "neoForgeVersion": "21.1.230",
+    "evidenceRun": "f11_e307198e8304e07b9af4d70319bd3b29d037bfc172cb4a1a25ff8d050c23a921"
+  },
+  "conditions": [
+    {
+      "id": "terminal-features-unavailable",
+      "lanes": ["client", "server"],
+      "matchKind": "suffix",
+      "value": "WARN StatusConsoleListener Advanced terminal features are not available in this environment",
+      "provenance": "reports/constructionwand-runClientWorld.log:24 and reports/constructionwand-runServer.log:28",
+      "reason": "Exact Log4j terminal capability warning from the pinned isolated benchmark."
+    },
+    {
+      "id": "vanilla-teleport-location-destination",
+      "lanes": ["client", "server"],
+      "matchKind": "suffix",
+      "value": "[minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]",
+      "provenance": "reports/constructionwand-runClientWorld.log:366 and reports/constructionwand-runServer.log:342",
+      "reason": "Exact vanilla teleport ambiguity from the pinned Minecraft and NeoForge baseline."
+    },
+    {
+      "id": "vanilla-teleport-location-targets",
+      "lanes": ["client", "server"],
+      "matchKind": "suffix",
+      "value": "[minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]",
+      "provenance": "reports/constructionwand-runClientWorld.log:367 and reports/constructionwand-runServer.log:343",
+      "reason": "Exact vanilla teleport ambiguity from the pinned Minecraft and NeoForge baseline."
+    },
+    {
+      "id": "vanilla-teleport-destination-targets",
+      "lanes": ["client", "server"],
+      "matchKind": "suffix",
+      "value": "[minecraft/Commands]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]",
+      "provenance": "reports/constructionwand-runClientWorld.log:368 and reports/constructionwand-runServer.log:344",
+      "reason": "Exact vanilla teleport ambiguity from the pinned Minecraft and NeoForge baseline."
+    },
+    {
+      "id": "vanilla-teleport-targets-destination",
+      "lanes": ["client", "server"],
+      "matchKind": "suffix",
+      "value": "[minecraft/Commands]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]",
+      "provenance": "reports/constructionwand-runClientWorld.log:369 and reports/constructionwand-runServer.log:345",
+      "reason": "Exact vanilla teleport ambiguity from the pinned Minecraft and NeoForge baseline."
+    },
+    {
+      "id": "vanilla-teleport-target-location-destination",
+      "lanes": ["client", "server"],
+      "matchKind": "suffix",
+      "value": "[minecraft/Commands]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]",
+      "provenance": "reports/constructionwand-runClientWorld.log:370 and reports/constructionwand-runServer.log:346",
+      "reason": "Exact vanilla teleport ambiguity from the pinned Minecraft and NeoForge baseline."
+    },
+    {
+      "id": "moddev-neoforge-union-assets",
+      "lanes": ["client", "server"],
+      "matchKind": "regex",
+      "value": "^\\[[^\\]]+\\] \\[[^\\]]+\\/WARN\\] \\[minecraft\\/VanillaPackResourcesBuilder\\]: Assets URL 'union:\\/.*\\/neoforge-21\\.1\\.230\\.jar%23[0-9]+!\\/(?:assets|data)\\/\\.mcassetsroot' uses unexpected schema$",
+      "provenance": "reports/constructionwand-runClientWorld.log:371-372 and reports/constructionwand-runServer.log:407-408",
+      "reason": "Anchored ModDevGradle resource warning restricted to the pinned NeoForge artifact and vanilla logger."
+    },
+    {
+      "id": "vanilla-goat-horn-sound",
+      "lanes": ["client"],
+      "matchKind": "suffix",
+      "value": "[minecraft/SoundEngine]: Missing sound for event: minecraft:item.goat_horn.play",
+      "provenance": "reports/constructionwand-runClientWorld.log:475",
+      "reason": "Exact vanilla client sound warning from the pinned benchmark."
+    },
+    {
+      "id": "vanilla-goat-horn-break-sound",
+      "lanes": ["client"],
+      "matchKind": "suffix",
+      "value": "[minecraft/SoundEngine]: Missing sound for event: minecraft:entity.goat.screaming.horn_break",
+      "provenance": "reports/constructionwand-runClientWorld.log:476",
+      "reason": "Exact vanilla client sound warning from the pinned benchmark."
+    },
+    {
+      "id": "vanilla-emissive-sampler",
+      "lanes": ["client"],
+      "matchKind": "suffix",
+      "value": "[minecraft/ShaderInstance]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.",
+      "provenance": "reports/constructionwand-runClientWorld.log:493",
+      "reason": "Exact vanilla shader warning from the pinned benchmark."
+    },
+    {
+      "id": "offline-profile-properties",
+      "lanes": ["client"],
+      "matchKind": "regex",
+      "value": "^\\[[^\\]]+\\] \\[[^\\]]+\\/WARN\\] \\[mojang\\/YggdrasilMinecraftSessionService\\]: Couldn't look up profile properties for [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "provenance": "reports/constructionwand-runClientWorld.log:496",
+      "reason": "Anchored WARN-only profile lookup message for the isolated offline development identity."
+    }
+  ]
+}

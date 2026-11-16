@@ -1,11 +1,5 @@
 package cn.mcmod.sakura.compat.jei.category;
 
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import cn.mcmod.sakura.SakuraMod;
 import cn.mcmod.sakura.block.BlockRegistry;
 import cn.mcmod.sakura.compat.jei.JEIPlugin;
@@ -19,14 +13,25 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class StoneMortarCategory implements IRecipeCategory<StoneMortarRecipe> {
 
     public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(SakuraMod.MODID, "stone_mortar");
+
     private final Component title;
+
     private final IDrawable background;
+
     private final IDrawable icon;
+
     protected final IDrawable mortar;
+
     protected final IDrawable basket;
 
     public StoneMortarCategory(IGuiHelper helper) {
@@ -37,7 +42,7 @@ public class StoneMortarCategory implements IRecipeCategory<StoneMortarRecipe> {
         mortar = helper.createDrawable(backgroundImage, 176, 0, 14, 16);
         basket = helper.createDrawable(backgroundImage, 190, 18, 16, 6);
     }
-    
+
     @Override
     public RecipeType<StoneMortarRecipe> getRecipeType() {
         return JEIPlugin.STONE_MORTAR_JEI_TYPE;
@@ -48,37 +53,46 @@ public class StoneMortarCategory implements IRecipeCategory<StoneMortarRecipe> {
         return title;
     }
 
-    @Override
-    public IDrawable getBackground() {
-        return background;
-    }
+
+
+
+
+	@Override
+	public int getWidth() {
+		return this.background.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+		return this.background.getHeight();
+	}
 
     @Override
     public IDrawable getIcon() {
         return icon;
     }
-    
+
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, StoneMortarRecipe recipe, IFocusGroup focuses) {
-      NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
-      int borderSlotSize = 18;
-      for (int row = 0; row < 2; ++row) {
-          for (int column = 0; column < 2; ++column) {
-              int inputIndex = row * 2 + column;
-              if (inputIndex < recipeIngredients.size()) {
-                  builder.addSlot(RecipeIngredientRole.INPUT, 1+column * borderSlotSize, 14 + row * borderSlotSize)
-                  .addIngredients(recipeIngredients.get(inputIndex));
-              }
-          }
-      }
-      builder.addSlot(RecipeIngredientRole.OUTPUT, 66, 5).addItemStack(recipe.getResultItemList().get(0));
-      if (recipe.getResultItemList().size() > 1) {
-          builder.addSlot(RecipeIngredientRole.OUTPUT, 66, 41).addItemStack(recipe.getResultItemList().get(1));
-      }
+        NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
+        int borderSlotSize = 18;
+        for (int row = 0; row < 2; ++row) {
+            for (int column = 0; column < 2; ++column) {
+                int inputIndex = row * 2 + column;
+                if (inputIndex < recipeIngredients.size()) {
+                    builder.addSlot(RecipeIngredientRole.INPUT, 1 + column * borderSlotSize, 14 + row * borderSlotSize).addIngredients(recipeIngredients.get(inputIndex));
+                }
+            }
+        }
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 66, 5).addItemStack(recipe.getResultItemList().get(0));
+        if (recipe.getResultItemList().size() > 1) {
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 66, 41).addItemStack(recipe.getResultItemList().get(1));
+        }
     }
 
     @Override
     public void draw(StoneMortarRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    	this.background.draw(guiGraphics);
         mortar.draw(guiGraphics, 42, 20);
         basket.draw(guiGraphics, 41, 36);
     }

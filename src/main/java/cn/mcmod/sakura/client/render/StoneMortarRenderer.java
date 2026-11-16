@@ -1,5 +1,13 @@
 package cn.mcmod.sakura.client.render;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
+import cn.mcmod.sakura.SakuraMod;
+import cn.mcmod.sakura.block.BlockRegistry;
+import cn.mcmod.sakura.block.entity.StoneMortarBlockEntity;
+import cn.mcmod.sakura.block.machines.StoneMortarBlock;
+import cn.mcmod.sakura.client.layers.LayerRegistry;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -14,20 +22,11 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import cn.mcmod.sakura.SakuraMod;
-import cn.mcmod.sakura.block.BlockRegistry;
-import cn.mcmod.sakura.block.entity.StoneMortarBlockEntity;
-import cn.mcmod.sakura.block.machines.StoneMortarBlock;
-import cn.mcmod.sakura.client.layers.LayerRegistry;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 
 public class StoneMortarRenderer implements BlockEntityRenderer<StoneMortarBlockEntity> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(SakuraMod.MODID, "textures/entity/tileentity/mortar.png");
-
     private final ModelPart top;
+
     private final ModelPart bb_main;
 
     public StoneMortarRenderer(BlockEntityRendererProvider.Context context) {
@@ -39,30 +38,23 @@ public class StoneMortarRenderer implements BlockEntityRenderer<StoneMortarBlock
     public static LayerDefinition createLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
-        partdefinition.addOrReplaceChild("top",
-                CubeListBuilder.create().texOffs(0, 24)
-                        .addBox(-8.0F, -16.0F, -8.0F, 16.0F, 8.0F, 16.0F, new CubeDeformation(0.0F)).texOffs(0, 0)
-                        .addBox(-6.0F, -22.0F, 4.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)),
-                PartPose.offset(0.0F, 24.0F, 0.0F));
-        partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -8.0F, -8.0F,
-                16.0F, 8.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+        partdefinition.addOrReplaceChild("top", CubeListBuilder.create().texOffs(0, 24).addBox(-8.0F, -16.0F, -8.0F, 16.0F, 8.0F, 16.0F, new CubeDeformation(0.0F)).texOffs(0, 0).addBox(-6.0F, -22.0F, 4.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+        partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -8.0F, -8.0F, 16.0F, 8.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
         return LayerDefinition.create(meshdefinition, 128, 64);
     }
 
     @Override
-    public void render(StoneMortarBlockEntity tileEntity, float partialTicks, PoseStack poseStack,
-            MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+    public void render(StoneMortarBlockEntity tileEntity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
         Level world = tileEntity.getLevel();
         boolean flag = world != null;
-        BlockState blockstate = flag ? tileEntity.getBlockState()
-                : BlockRegistry.STONE_MORTAR.get().defaultBlockState();
+        BlockState blockstate = flag ? tileEntity.getBlockState() : BlockRegistry.STONE_MORTAR.get().defaultBlockState();
         if (blockstate.getBlock() instanceof StoneMortarBlock) {
             poseStack.pushPose();
             poseStack.translate(0.5D, 1.5D, 0.5D);
             poseStack.mulPose(Axis.XP.rotationDegrees(180));
             top.setRotation(0F, ((float) (Math.PI * tileEntity.getRotation()) / 180.0F), 0F);
-            this.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entitySolid(TEXTURE)), combinedLight,
-                    combinedOverlay);
+            ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(SakuraMod.MODID, "textures/entity/tileentity/mortar.png");
+            this.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entitySolid(TEXTURE)), combinedLight, combinedOverlay);
             poseStack.popPose();
         }
     }
@@ -71,5 +63,4 @@ public class StoneMortarRenderer implements BlockEntityRenderer<StoneMortarBlock
         top.render(poseStack, buffer, packedLight, packedOverlay);
         bb_main.render(poseStack, buffer, packedLight, packedOverlay);
     }
-
 }

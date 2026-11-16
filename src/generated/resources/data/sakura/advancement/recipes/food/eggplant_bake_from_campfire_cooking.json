@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "sakura:eggplant"
+            "items": [
+              "sakura:eggplant"
+            ]
           }
         ]
       },
@@ -20,13 +22,14 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_ingredient"
+      "has_ingredient",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "sakura:eggplant_bake_from_campfire_cooking"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

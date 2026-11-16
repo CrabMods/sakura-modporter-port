@@ -1,37 +1,36 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "ingredients": [
-    {
-      "tag": "c:seeds/rapeseed"
-    },
-    {
-      "tag": "c:seeds/rapeseed"
-    },
-    {
-      "tag": "c:seeds/rapeseed"
-    },
-    {
-      "tag": "c:seeds/rapeseed"
-    },
-    {
-      "tag": "c:seeds/rapeseed"
-    },
-    {
-      "tag": "c:seeds/rapeseed"
-    },
-    {
-      "tag": "c:seeds/rapeseed"
-    },
-    {
-      "tag": "c:seeds/rapeseed"
-    },
-    {
-      "item": "minecraft:bucket"
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "tag": "c:seeds/rapeseed"
+        },
+        {
+            "tag": "c:seeds/rapeseed"
+        },
+        {
+            "tag": "c:seeds/rapeseed"
+        },
+        {
+            "tag": "c:seeds/rapeseed"
+        },
+        {
+            "tag": "c:seeds/rapeseed"
+        },
+        {
+            "tag": "c:seeds/rapeseed"
+        },
+        {
+            "tag": "c:seeds/rapeseed"
+        },
+        {
+            "tag": "c:seeds/rapeseed"
+        },
+        {
+            "item": "minecraft:bucket"
+        }
+    ],
+    "result": {
+        "id": "sakura:food_oil_bucket"
     }
-  ],
-  "result": {
-    "count": 1,
-    "id": "sakura:food_oil_bucket"
-  }
 }

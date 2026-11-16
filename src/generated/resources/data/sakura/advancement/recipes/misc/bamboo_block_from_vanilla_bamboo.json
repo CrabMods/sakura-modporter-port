@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:bamboo"
+            "items": [
+              "minecraft:bamboo"
+            ]
           }
         ]
       },
@@ -15,7 +17,9 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:bamboo"
+            "items": [
+              "minecraft:bamboo"
+            ]
           }
         ]
       },
@@ -30,14 +34,15 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
       "has_ingredient",
-      "has_item"
+      "has_item",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
       "sakura:bamboo_block_from_vanilla_bamboo"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

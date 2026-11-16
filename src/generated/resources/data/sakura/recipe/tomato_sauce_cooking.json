@@ -1,21 +1,21 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "fluid": {
-    "amount": 250,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "tag": "c:crops/tomato"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 250,
+        "fluidTag": "c:water/water"
     },
-    {
-      "tag": "c:crops/tomato"
+    "ingredients": [
+        {
+            "tag": "c:crops/tomato"
+        },
+        {
+            "tag": "c:crops/tomato"
+        }
+    ],
+    "recipeTime": 200,
+    "result": {
+        "count": 2,
+        "item": "sakura:tomato_sauce"
     }
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 2,
-    "id": "sakura:tomato_sauce"
-  }
 }

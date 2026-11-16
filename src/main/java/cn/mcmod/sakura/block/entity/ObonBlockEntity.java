@@ -1,29 +1,36 @@
 package cn.mcmod.sakura.block.entity;
 
+import cn.mcmod_mmf.mmlib.block.entity.SyncedBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import com.modporter.generated.sakura.compat.LazyOptional;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import cn.mcmod_mmf.mmlib.block.entity.SyncedBlockEntity;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.minecraft.core.HolderLookup;
+import com.modporter.generated.sakura.compat.LazyOptional;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+
 
 public class ObonBlockEntity extends SyncedBlockEntity {
+
     private final ItemStackHandler inventory;
+
+    private final LazyOptional<IItemHandler> inputHandler;
 
     public ObonBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.OBON.get(), pos, state);
-        
         inventory = createHandler();
+        inputHandler = LazyOptional.of(() -> inventory);
     }
 
     @Override
-    public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+    protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
         super.loadAdditional(compound, registries);
         inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
     }
@@ -64,13 +71,16 @@ public class ObonBlockEntity extends SyncedBlockEntity {
         return inventory.getStackInSlot(0).isEmpty();
     }
 
+
     @Override
     public void setRemoved() {
         super.setRemoved();
+        inputHandler.invalidate();
     }
 
     private ItemStackHandler createHandler() {
         return new ItemStackHandler() {
+
             @Override
             public int getSlotLimit(int slot) {
                 return 1;
@@ -81,5 +91,14 @@ public class ObonBlockEntity extends SyncedBlockEntity {
                 inventoryChanged();
             }
         };
+    }
+
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                BlockEntityRegistry.OBON.get(),
+                (ObonBlockEntity blockEntity, net.minecraft.core.Direction side) -> blockEntity.inputHandler.orElse(null));
     }
 }

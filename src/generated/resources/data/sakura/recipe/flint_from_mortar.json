@@ -1,20 +1,18 @@
 {
-  "type": "sakura:stone_mortar",
-  "experience": 0,
-  "ingredients": [
-    {
-      "tag": "c:gravels"
-    }
-  ],
-  "recipeTime": 200,
-  "results": [
-    {
-      "count": 1,
-      "id": "minecraft:sand"
-    },
-    {
-      "count": 1,
-      "id": "minecraft:flint"
-    }
-  ]
+    "type": "sakura:stone_mortar",
+    "experience": 0.0,
+    "ingredients": [
+        {
+            "tag": "c:gravels"
+        }
+    ],
+    "recipeTime": 200,
+    "results": [
+        {
+            "item": "minecraft:sand"
+        },
+        {
+            "item": "minecraft:flint"
+        }
+    ]
 }

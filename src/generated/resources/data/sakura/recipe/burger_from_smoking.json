@@ -1,14 +1,13 @@
 {
-  "type": "minecraft:smoking",
-  "category": "food",
-  "cookingtime": 100,
-  "experience": 0.5,
-  "group": "sakura",
-  "ingredient": {
-    "item": "sakura:burger_raw"
-  },
-  "result": {
-    "count": 1,
-    "id": "sakura:burger"
-  }
+    "type": "minecraft:smoking",
+    "category": "food",
+    "cookingtime": 100,
+    "experience": 0.5,
+    "group": "sakura",
+    "ingredient": {
+        "item": "sakura:burger_raw"
+    },
+    "result": {
+        "id": "sakura:burger"
+    }
 }

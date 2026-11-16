@@ -1,21 +1,21 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "I": {
-      "tag": "c:ingots/iron"
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+        "I": {
+            "tag": "c:ingots/iron"
+        },
+        "L": {
+            "tag": "c:lumber"
+        }
     },
-    "L": {
-      "tag": "c:lumber"
-    }
-  },
-  "pattern": [
-    "  I",
-    " I ",
-    "L  "
-  ],
-  "result": {
-    "count": 1,
-    "id": "sakura:knife_fish"
-  }
+    "pattern": [
+        "  I",
+        " I ",
+        "L  "
+    ],
+    "result": {
+        "id": "sakura:knife_fish"
+    },
+    "show_notification": true
 }

@@ -1,24 +1,24 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "fluid": {
-    "amount": 125,
-    "tag": "c:water/water"
-  },
-  "ingredients": [
-    {
-      "tag": "c:dough/rice"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 125,
+        "fluidTag": "c:water/water"
     },
-    {
-      "item": "minecraft:short_grass"
-    },
-    {
-      "item": "sakura:red_bean_paste"
+    "ingredients": [
+        {
+            "tag": "c:dough/rice"
+        },
+        {
+            "item": "minecraft:short_grass"
+        },
+        {
+            "item": "sakura:red_bean_paste"
+        }
+    ],
+    "recipeTime": 200,
+    "result": {
+        "count": 2,
+        "item": "sakura:kusa_daifuku"
     }
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 2,
-    "id": "sakura:kusa_daifuku"
-  }
 }

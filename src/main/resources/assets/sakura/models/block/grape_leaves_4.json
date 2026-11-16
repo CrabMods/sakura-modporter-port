@@ -1,10 +1,10 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "minecraft:block/oak_planks",
+		"0": "block/planks_oak",
 		"1": "sakura:block/grape_leave_2",
 		"2": "sakura:block/grape_0",
-		"particle": "minecraft:block/oak_planks"
+		"particle": "block/planks_oak"
 	},
 	"elements": [
 		{

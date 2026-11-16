@@ -1,7 +1,52 @@
 {
-  "variants": {
-    "": {
-      "model": "sakura:block/whiskey"
+    "variants": {
+        "level=0": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=1": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=2": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=3": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=4": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=5": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=6": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=7": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=8": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=9": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=10": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=11": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=12": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=13": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=14": {
+            "model": "sakura:block/whiskey"
+        },
+        "level=15": {
+            "model": "sakura:block/whiskey"
+        }
     }
-  }
 }

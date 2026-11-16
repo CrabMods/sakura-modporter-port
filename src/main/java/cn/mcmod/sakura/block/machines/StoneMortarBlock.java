@@ -1,8 +1,13 @@
 package cn.mcmod.sakura.block.machines;
 
+import javax.annotation.Nullable;
+
+import cn.mcmod.sakura.block.entity.BlockEntityRegistry;
+import cn.mcmod.sakura.block.entity.StoneMortarBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -15,24 +20,23 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import cn.mcmod.sakura.block.entity.BlockEntityRegistry;
-import cn.mcmod.sakura.block.entity.StoneMortarBlockEntity;
-import com.mojang.serialization.MapCodec;
-
-import javax.annotation.Nullable;
-
+import net.minecraft.world.level.block.state.BlockBehaviour;
 public class StoneMortarBlock extends BaseEntityBlock {
-    public static final MapCodec<StoneMortarBlock> CODEC = simpleCodec(p -> new StoneMortarBlock());
+    public static final com.mojang.serialization.MapCodec<StoneMortarBlock> CODEC = simpleCodec(StoneMortarBlock::new);
 
-    @SuppressWarnings("unchecked")
     @Override
-    public MapCodec codec() {
+    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.BaseEntityBlock> codec() {
         return CODEC;
     }
 
 
+    public StoneMortarBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+        super(properties);
+    }
+
+
     public StoneMortarBlock() {
-        super(Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion());
+        super(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion());
     }
 
     @Override
@@ -50,7 +54,7 @@ public class StoneMortarBlock extends BaseEntityBlock {
         if (!world.isClientSide()) {
             BlockEntity tileEntity = world.getBlockEntity(pos);
             if (tileEntity instanceof StoneMortarBlockEntity blockEntity) {
-            	player.openMenu( blockEntity, pos);
+            	((ServerPlayer) player).openMenu(blockEntity, pos);
             }
         }
         return InteractionResult.SUCCESS;

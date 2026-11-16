@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "sakura:block/spile" },
-    "facing=south": { "model": "sakura:block/spile", "y": 180 },
-    "facing=west": { "model": "sakura:block/spile", "y": 270 },
-    "facing=east": { "model": "sakura:block/spile", "y": 90 }
-  }
-}

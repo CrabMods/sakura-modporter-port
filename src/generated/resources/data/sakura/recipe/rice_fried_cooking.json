@@ -1,27 +1,26 @@
 {
-  "type": "sakura:cooking",
-  "experience": 0,
-  "fluid": {
-    "amount": 125,
-    "tag": "c:food_oil"
-  },
-  "ingredients": [
-    {
-      "tag": "sakura:rice/rice"
+    "type": "sakura:cooking",
+    "experience": 0.0,
+    "fluid": {
+        "amount": 125,
+        "fluidTag": "c:food_oil"
     },
-    {
-      "tag": "c:eggs"
-    },
-    {
-      "tag": "c:vegetables"
-    },
-    {
-      "tag": "c:salt"
+    "ingredients": [
+        {
+            "tag": "sakura:rice/rice"
+        },
+        {
+            "tag": "c:eggs"
+        },
+        {
+            "tag": "c:vegetables"
+        },
+        {
+            "tag": "c:salt"
+        }
+    ],
+    "recipeTime": 200,
+    "result": {
+        "item": "sakura:rice_fried"
     }
-  ],
-  "recipeTime": 200,
-  "result": {
-    "count": 1,
-    "id": "sakura:rice_fried"
-  }
 }
