@@ -4,7 +4,7 @@ Sakura Mod candidate `1.0.10-1.21.1-modporter.1` was generated on November 16, 2
 
 ## Manual history
 
-The earlier manual port remains on [1.21.1-manual](https://github.com/crabsatellite/sakura-modporter-port/tree/1.21.1-manual), preserved at `d24468696972b0f9cb60ee52d33d1b40f8144bb1`. Its manually repaired code baseline is `2204aedd9936307bf05f5a46de46fc4cccd317b1`. The generated `1.21.1` branch starts again from the pinned upstream source below.
+The earlier manual port remains on [1.21.1-manual](https://github.com/CrabMods/sakura-modporter-port/tree/1.21.1-manual), preserved at `d24468696972b0f9cb60ee52d33d1b40f8144bb1`. Its manually repaired code baseline is `2204aedd9936307bf05f5a46de46fc4cccd317b1`. The generated `1.21.1` branch starts again from the pinned upstream source below.
 
 ## Provenance
 
@@ -72,7 +72,7 @@ python -B "$ModPorterSource\scripts\export_research_port.py" `
   --jar $ModPorterJar `
   --src $Upstream `
   --out $Export `
-  --repo-url https://github.com/crabsatellite/sakura-modporter-port `
+  --repo-url https://github.com/CrabMods/sakura-modporter-port `
   --mod-id sakura `
   --display-name "Sakura Mod" `
   --candidate-version 1.0.10-1.21.1-modporter.1 `
@@ -103,3 +103,7 @@ The checked-in `validation/fixtures/client-world.zip` supplies the exact owned, 
 The Minecraft `1.21.1` branch contains this generated developer baseline; later game versions use separate version branches. Migration fixes belong in reusable [ModPorter rules and issues](https://github.com/CrabMods/modporter/issues). The original mod remains MIT with its original copyright. Public build and validation components retain their separate Apache-2.0 notices. Human review is part of preparing a generated port for broader distribution.
 
 The packaging metadata fixes `rootProject.name` to `sakura`, keeping the JAR manifest title independent of the checkout directory. Production code and resource payloads remain unchanged.
+
+## Repository ownership
+
+This repository was transferred to the CrabMods organization on November 16, 2026. Its GitHub repository ID remains `1156141731`; the existing release, tags, and manual branch are preserved. `MODPORTER-PROVENANCE.json` retains the former URL recorded during generation, and GitHub redirects it to this repository. New generations use the canonical CrabMods URL. The tested JAR remains unchanged.

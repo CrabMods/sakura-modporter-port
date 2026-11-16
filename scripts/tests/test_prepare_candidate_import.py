@@ -21,6 +21,7 @@ from prepare_candidate_import import (
     TOOL_TAG,
     TOOL_VERSION,
     prepare_candidate,
+    validate_provenance,
 )
 
 
@@ -149,6 +150,21 @@ class CandidatePreparationTest(unittest.TestCase):
             )
             with self.assertRaisesRegex(CandidatePreparationError, "upstream.tree"):
                 prepare_candidate(project, self.official_sha)
+
+    def test_accepts_transferred_repository_and_recorded_historical_owner(self) -> None:
+        for repository in (
+            "https://github.com/CrabMods/sakura-modporter-port",
+            "https://github.com/crabsatellite/sakura-modporter-port",
+        ):
+            provenance = self.provenance()
+            provenance["candidate"]["repository"] = repository
+            validate_provenance(provenance, self.official_sha)
+
+    def test_transfer_does_not_admit_an_unrelated_repository(self) -> None:
+        provenance = self.provenance()
+        provenance["candidate"]["repository"] = "https://github.com/another-owner/sakura-modporter-port"
+        with self.assertRaisesRegex(CandidatePreparationError, "outside the reviewed"):
+            validate_provenance(provenance, self.official_sha)
 
 
 if __name__ == "__main__":

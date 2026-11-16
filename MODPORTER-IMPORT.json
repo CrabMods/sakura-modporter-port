@@ -21,5 +21,12 @@
   "packagingMetadataEdits": [
     "Append the public testing hook to build.gradle",
     "Set rootProject.name to sakura for a directory-independent JAR manifest title"
-  ]
+  ],
+  "repositoryOwnership": {
+    "repository": "https://github.com/CrabMods/sakura-modporter-port",
+    "repositoryId": 1156141731,
+    "previousRepository": "https://github.com/crabsatellite/sakura-modporter-port",
+    "transferredOn": "2026-11-16",
+    "generationProvenancePreserved": true
+  }
 }

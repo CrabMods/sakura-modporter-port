@@ -27,9 +27,9 @@ the results to the exact artifact.
 
 | Branch | Purpose |
 | --- | --- |
-| [`1.20.1`](https://github.com/crabsatellite/sakura-modporter-port/tree/1.20.1) | Historical upstream-version branch |
-| [`1.21.1`](https://github.com/crabsatellite/sakura-modporter-port/tree/1.21.1) | ModPorter-generated NeoForge 1.21.1 developer baseline |
-| [`1.21.1-manual`](https://github.com/crabsatellite/sakura-modporter-port/tree/1.21.1-manual) | Preserved historical port with per-mod manual repairs |
+| [`1.20.1`](https://github.com/CrabMods/sakura-modporter-port/tree/1.20.1) | Historical upstream-version branch |
+| [`1.21.1`](https://github.com/CrabMods/sakura-modporter-port/tree/1.21.1) | ModPorter-generated NeoForge 1.21.1 developer baseline |
+| [`1.21.1-manual`](https://github.com/CrabMods/sakura-modporter-port/tree/1.21.1-manual) | Preserved historical port with per-mod manual repairs |
 
 Future porting work should improve reusable ModPorter rules and regenerate the
 generated branch. The historical manual branch remains unchanged and available

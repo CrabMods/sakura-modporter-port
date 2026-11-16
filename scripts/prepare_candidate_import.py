@@ -30,8 +30,11 @@ EXPECTED_INVOCATION = [
     "<new-empty-output>",
     "--add-tool-credit",
 ]
-EXPECTED = {'mod_id': 'sakura', 'candidate_version': '1.0.10-1.21.1-modporter.1', 'candidate_repository': 'https://github.com/crabsatellite/sakura-modporter-port', 'upstream_repository': 'https://github.com/0999312/Sakura_mod.git', 'upstream_commit': '0201301e5aa371d7f0816b1d786ca89e99936912', 'upstream_tree': 'ef9f417b0ff116654add3b45c5b632df60cbabdd'}
+EXPECTED = {'mod_id': 'sakura', 'candidate_version': '1.0.10-1.21.1-modporter.1', 'candidate_repository': 'https://github.com/CrabMods/sakura-modporter-port', 'upstream_repository': 'https://github.com/0999312/Sakura_mod.git', 'upstream_commit': '0201301e5aa371d7f0816b1d786ca89e99936912', 'upstream_tree': 'ef9f417b0ff116654add3b45c5b632df60cbabdd'}
 SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
+HISTORICAL_CANDIDATE_REPOSITORIES = (
+    "https://github.com/crabsatellite/sakura-modporter-port",
+)
 
 
 class CandidatePreparationError(RuntimeError):
@@ -109,7 +112,11 @@ def validate_provenance(
     candidate = _mapping(provenance.get("candidate"), "candidate")
     _exact(candidate, "modId", EXPECTED["mod_id"], "candidate")
     _exact(candidate, "version", EXPECTED["candidate_version"], "candidate")
-    if _normalize_github_repository(candidate.get("repository"), "candidate.repository") != _normalize_github_repository(EXPECTED["candidate_repository"], "expected candidate repository"):
+    allowed_repositories = {
+        _normalize_github_repository(url, "reviewed candidate repository")
+        for url in (EXPECTED["candidate_repository"], *HISTORICAL_CANDIDATE_REPOSITORIES)
+    }
+    if _normalize_github_repository(candidate.get("repository"), "candidate.repository") not in allowed_repositories:
         raise CandidatePreparationError("candidate.repository is outside the reviewed candidate repository")
 
     upstream = _mapping(provenance.get("upstream"), "upstream")
