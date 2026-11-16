@@ -60,7 +60,7 @@ def classify(lines: list[str], receipt: dict, policy: dict) -> dict:
     if not target_path.is_file() or sha256(target_path) != target["jarSha256"]:
         return {"allowedConditions": allowed, "artifacts": observations}
     with zipfile.ZipFile(target_path) as target_zip:
-        target_entries = target_zip.namelist()
+        target_entries = [entry.filename for entry in target_zip.infolist() if not entry.is_dir()]
 
     inventory = target.get("runtimeModJarInventory", [])
     for definition in definitions:
@@ -81,7 +81,7 @@ def classify(lines: list[str], receipt: dict, policy: dict) -> dict:
                 raise ValueError("dependency artifact hash changed after the native observation")
             if any(name.startswith(prefix) for name in target_entries
                    for prefix in definition["forbiddenTargetPrefixes"]):
-                raise ValueError("target JAR overrides the dependency resource namespace")
+                raise ValueError("target JAR overrides an audited dependency resource")
             with zipfile.ZipFile(path) as archive:
                 check_zip_facts(archive, definition["facts"])
         except (OSError, ValueError, KeyError, TypeError, zipfile.BadZipFile) as error:

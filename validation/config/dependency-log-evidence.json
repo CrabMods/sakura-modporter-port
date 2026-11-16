@@ -9,8 +9,9 @@
       "provenance": "https://modrinth.com/mod/mmlib/version/UZbuAxuL",
       "officialAsset": "https://cdn.modrinth.com/data/ntMyNH8c/versions/UZbuAxuL/mysterious_mountain_lib-1.3.16-1.21.1.jar",
       "forbiddenTargetPrefixes": [
-        "assets/mysterious_mountain_lib/",
-        "assets/mmlib/",
+        "assets/mysterious_mountain_lib/sounds.json",
+        "assets/mmlib/sounds/presented_by_zaia.ogg",
+        "assets/mysterious_mountain_lib/lang/",
         "mixins.mmlib"
       ],
       "facts": {

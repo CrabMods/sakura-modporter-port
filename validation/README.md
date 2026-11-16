@@ -150,6 +150,6 @@ claimed until these immutable receipts all pass.
 The log audit records the welcome-sound, subtitle, and development-refmap
 findings in the official MMLib 1.3.16 artifact separately. Classification
 requires the native loaded-JAR SHA-256, an unchanged artifact, matching ZIP
-resource facts, and no overriding target resources. All other warnings and
+resource facts, and no target overrides of the audited resources. All other warnings and
 errors remain findings. The exact artifact and messages are recorded in
 `config/dependency-log-evidence.json`.

@@ -92,6 +92,25 @@ class DependencyLogEvidenceTest(unittest.TestCase):
             policy["artifacts"][0]["facts"]["jsonValues"][0]["equals"] = "different"
             self.assertEqual([], classify([line], receipt, policy)["allowedConditions"])
 
+    def test_unrelated_models_do_not_override_audited_sound_resources(self):
+        with tempfile.TemporaryDirectory() as directory:
+            policy, receipt, line, _, target = self.fixture(Path(directory))
+            policy["artifacts"][0]["forbiddenTargetPrefixes"] = [
+                "assets/library/sounds.json", "assets/library/lang/"
+            ]
+            with zipfile.ZipFile(target, "a") as archive:
+                archive.writestr("assets/library/models/block/example.json", "{}")
+            receipt["target"]["jarSha256"] = hashlib.sha256(target.read_bytes()).hexdigest()
+            self.assertEqual(1, len(classify([line], receipt, policy)["allowedConditions"]))
+
+    def test_empty_zip_directories_are_not_resource_overrides(self):
+        with tempfile.TemporaryDirectory() as directory:
+            policy, receipt, line, _, target = self.fixture(Path(directory))
+            with zipfile.ZipFile(target, "a") as archive:
+                archive.writestr("assets/library/", "")
+            receipt["target"]["jarSha256"] = hashlib.sha256(target.read_bytes()).hexdigest()
+            self.assertEqual(1, len(classify([line], receipt, policy)["allowedConditions"]))
+
     def test_failed_native_session_cannot_supply_exception_evidence(self):
         with tempfile.TemporaryDirectory() as directory:
             policy, receipt, line, _, _ = self.fixture(Path(directory))
