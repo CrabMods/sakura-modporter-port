@@ -440,7 +440,9 @@ if ($Lane -eq 'client') {
     'eula=true' | Set-Content -LiteralPath (
         Join-Path $runtimeDirectory 'eula.txt') -Encoding ascii
     @(
-        'online-mode=false'
+        'online-mode=true'
+        'server-ip=127.0.0.1'
+        'server-port=0'
         'level-name=exact_jar_validation_server'
         'gamemode=creative'
         'force-gamemode=true'
