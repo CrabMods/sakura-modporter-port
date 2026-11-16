@@ -41,6 +41,25 @@ def _without_separator(arguments: Sequence[str]) -> tuple[str, ...]:
 
 
 def parse_cli(arguments: Sequence[str]) -> tuple[Path | None, BuildRequest]:
+    values = list(arguments)
+    command_index = 0
+    while command_index < len(values):
+        value = values[command_index]
+        if value == "--project-root":
+            command_index += 2
+        elif value.startswith("--project-root="):
+            command_index += 1
+        else:
+            break
+    if (
+        command_index < len(values)
+        and values[command_index] in ("build", "gradle")
+        and command_index + 1 < len(values)
+        and values[command_index + 1] not in ("--", "-h", "--help")
+    ):
+        # PowerShell may consume the caller's separator before forwarding @args.
+        # Everything after this command belongs to the Gradle wrapper.
+        values.insert(command_index + 1, "--")
     parser = argparse.ArgumentParser(
         description="Run the project-owned public Gradle wrapper"
     )
@@ -52,7 +71,7 @@ def parse_cli(arguments: Sequence[str]) -> tuple[Path | None, BuildRequest]:
     build.add_argument("arguments", nargs=argparse.REMAINDER)
     gradle = commands.add_parser("gradle")
     gradle.add_argument("arguments", nargs=argparse.REMAINDER)
-    parsed = parser.parse_args(list(arguments))
+    parsed = parser.parse_args(values)
     extra = _without_separator(getattr(parsed, "arguments", ()))
     return parsed.project_root, BuildRequest(parsed.command, extra)
 

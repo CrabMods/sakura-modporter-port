@@ -73,6 +73,27 @@ class PublicBuildCliTest(unittest.TestCase):
                 plan.gradle_command,
             )
 
+    def test_build_forwards_leading_gradle_options_without_a_separator(self) -> None:
+        root, request = parse_cli([
+            "--project-root", "repo", "build", "--no-daemon", "--console=plain"
+        ])
+        self.assertEqual(Path("repo"), root)
+        self.assertEqual(
+            BuildRequest("build", ("--no-daemon", "--console=plain")), request
+        )
+
+    def test_gradle_forwards_leading_options(self) -> None:
+        root, request = parse_cli(["gradle", "--version"])
+        self.assertIsNone(root)
+        self.assertEqual(BuildRequest("gradle", ("--version",)), request)
+
+    def test_project_root_value_can_match_a_command_name(self) -> None:
+        root, request = parse_cli([
+            "--project-root", "build", "build", "--no-daemon"
+        ])
+        self.assertEqual(Path("build"), root)
+        self.assertEqual(BuildRequest("build", ("--no-daemon",)), request)
+
     def test_private_selection_is_strict_and_runs_before_gradle(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             parent = Path(directory)
