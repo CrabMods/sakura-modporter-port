@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "validatedOn": "2026-11-16",
+  "artifact": {
+    "filename": "Sakura-1.0.10-1.21.1-modporter.1.jar",
+    "bytes": 2759217,
+    "sha256": "22a613d19958d04166d3f4910b625a0ca8e50c6f34e9395e6d2ccb735fdd7095"
+  },
+  "sourceBuildCommit": "0438478ca1bec32d13b5c72411f7f36316e44d70",
+  "sourceBuildTree": "55591fc846a8326b1fee047ae37096f60b3185b2",
+  "generatorVersion": "0.4.0",
+  "generatorJarSha256": "1134fa8ae04d50d904396fc2b59b77d7e668464f8dd63cfcf4c2eb521d37a9f4",
+  "allProductionFilesMatchGeneratedExport": true,
+  "modLogicHandPatches": false,
+  "lanes": {
+    "server": {
+      "passed": true,
+      "processStarts": 1,
+      "worldLoads": 1,
+      "scenarios": [
+        "target-jar-origin",
+        "dedicated-server-ready-save-stop"
+      ],
+      "cleanupFailures": 0,
+      "unexplainedLogFindings": 0,
+      "knownDependencyFindings": [
+        {
+          "conditionId": "mmlib-pinned-missing-refmap",
+          "dependencyJarSha256": "6010a3ba353a3f88343630bc053250105df49b331dfcdd254810fbb46ef7f8a4"
+        }
+      ],
+      "runReceiptSha256": "21c01be760d1e63a165755dd651c03c77151bb9bb5534f8cbb029478a6b62843",
+      "harnessReceiptSha256": "f0a3ab4775c93a8c0ccddc9eca97afa95674aee235f06b7649f709be3ea7c73b",
+      "runtimeLogSha256": "3934caa1f72507db1d7fad0454e195dffa7f4546015ccb6da20e2071b28b0e7c",
+      "harnessSourceRootSha256": "3520138c3da780dd918874022361ce3ed4b4d5fcdb197c521551da31cb05906a"
+    },
+    "client": {
+      "passed": true,
+      "processStarts": 1,
+      "worldLoads": 1,
+      "scenarios": [
+        "target-jar-origin",
+        "client-world-ready",
+        "creative-inventory-rendered",
+        "mod-creative-tabs-all-rows-rendered"
+      ],
+      "cleanupFailures": 0,
+      "unexplainedLogFindings": 0,
+      "knownDependencyFindings": [
+        {
+          "conditionId": "mmlib-pinned-missing-refmap",
+          "dependencyJarSha256": "6010a3ba353a3f88343630bc053250105df49b331dfcdd254810fbb46ef7f8a4"
+        },
+        {
+          "conditionId": "mmlib-pinned-missing-welcome-sound",
+          "dependencyJarSha256": "6010a3ba353a3f88343630bc053250105df49b331dfcdd254810fbb46ef7f8a4"
+        },
+        {
+          "conditionId": "mmlib-pinned-missing-welcome-subtitle",
+          "dependencyJarSha256": "6010a3ba353a3f88343630bc053250105df49b331dfcdd254810fbb46ef7f8a4"
+        }
+      ],
+      "runReceiptSha256": "d7ac67e23e14032fcaf7f4066bb634d622e8ff3cd1cf3639c3772ee5a0a04712",
+      "harnessReceiptSha256": "709b9f5c6c7e2cd228bb2926021f64de43c5e93cd61de8272ab983b5680ca7e6",
+      "runtimeLogSha256": "5eaea72d3d25a0113b34cf39adb03c96dabb102569aa2707221342c6a884abd0",
+      "harnessSourceRootSha256": "3520138c3da780dd918874022361ce3ed4b4d5fcdb197c521551da31cb05906a",
+      "expectedRegisteredItemCount": 198,
+      "creativeTargetStackCount": 198,
+      "creativeTabCount": 2,
+      "screenshotCount": 36,
+      "occupiedSlotCount": 1619,
+      "occupiedSlotIconEvidenceCount": 1619,
+      "occupiedSlotIconExceptionCount": 0,
+      "targetSlotCount": 824,
+      "targetSlotIconEvidenceCount": 824,
+      "targetSlotIconExceptionCount": 0,
+      "serverPlayerStateRestored": true,
+      "pristineWorldUnchanged": true,
+      "uiMouseStateRestored": true
+    }
+  },
+  "uniqueEvidenceFilesRehashed": 60,
+  "scope": "Packaged JAR origin, bootstrap, saved-world load, native creative inventory and icon rendering, strict source-bound logs, and cleanup. Detailed item and integration behavior remains for developer review."
+}

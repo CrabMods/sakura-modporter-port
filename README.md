@@ -17,16 +17,18 @@ expected before wider distribution.
 
 ## Current status
 
-Generation and packaged-candidate validation are in progress. The GitHub
-default branch remains `1.20.1` during preparation. After the fresh generated
-source and exact JAR pass the checks below, `1.21.1` will become the default.
+The generated `1.0.10-1.21.1-modporter.1` JAR passed the recorded server and
+client gates on Minecraft 1.21.1, NeoForge 21.1.230, and Java 21. All 198
+registered item IDs matched the pinned source; 36 rendered-row screenshots
+cover the two relevant creative tabs. [VALIDATION.json](VALIDATION.json) binds
+the results to the exact artifact.
 
 ## Branches
 
 | Branch | Purpose |
 | --- | --- |
-| [`1.20.1`](https://github.com/crabsatellite/sakura-modporter-port/tree/1.20.1) | Current GitHub default while the generated 1.21.1 candidate is prepared |
-| [`1.21.1`](https://github.com/crabsatellite/sakura-modporter-port/tree/1.21.1) | Planned default for the reproducible ModPorter-generated baseline after validation |
+| [`1.20.1`](https://github.com/crabsatellite/sakura-modporter-port/tree/1.20.1) | Historical upstream-version branch |
+| [`1.21.1`](https://github.com/crabsatellite/sakura-modporter-port/tree/1.21.1) | ModPorter-generated NeoForge 1.21.1 developer baseline |
 | [`1.21.1-manual`](https://github.com/crabsatellite/sakura-modporter-port/tree/1.21.1-manual) | Preserved historical port with per-mod manual repairs |
 
 Future porting work should improve reusable ModPorter rules and regenerate the
@@ -46,22 +48,21 @@ compare this generated baseline with later upstream releases.
 
 ## Validation status
 
-The candidate will be considered ready only after each gate records a positive
-result from the freshly generated tree.
-
-| Gate | Status |
+| Gate | Recorded packaged-JAR result |
 | --- | --- |
-| Compile | Pending |
-| Dedicated-server startup | Pending |
-| Client startup | Pending |
-| Saved-world loading and controlled save | Pending |
-| Relevant creative tabs open; every displayed stack is rendered | Pending |
-| Runtime-log audit | Pending |
+| Public source build | Passed |
+| Dedicated-server startup, save, and controlled stop | Passed |
+| Client startup and saved-world load | Passed |
+| Native creative inventory and item coverage | All 198 registered items; 2 tabs; 36 row screenshots |
+| Occupied-slot icon evidence | 1,619/1,619 observations; zero icon exceptions |
+| State cleanup | Client/server inventory and mouse state restored; original fixture unchanged |
+| Runtime-log audit | Zero unexplained findings; pinned MMLib resource findings recorded |
 
-These checks cover project loading, saved-world loading, the in-game item
-interface, and runtime-log review. Detailed behavior of individual items,
-blocks, recipes, and integrations is the next area for developer review and
-focused playtesting.
+These checks cover loading, the in-game item interface, and strict log review.
+Detailed item, block, recipe, and integration behavior remains for developer
+review and focused playtesting. The official MMLib dependency's welcome-sound,
+subtitle, and development-refmap findings are tied to its exact JAR and resource
+contents in [PORTING.md](PORTING.md).
 
 ## Improving the port
 
