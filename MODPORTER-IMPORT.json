@@ -17,5 +17,9 @@
     "Independent exact-JAR validation harness",
     "Developer documentation and repository metadata"
   ],
-  "buildHook": "apply from: 'gradle/modporter-testing.gradle'"
+  "buildHook": "apply from: 'gradle/modporter-testing.gradle'",
+  "packagingMetadataEdits": [
+    "Append the public testing hook to build.gradle",
+    "Set rootProject.name to sakura for a directory-independent JAR manifest title"
+  ]
 }
